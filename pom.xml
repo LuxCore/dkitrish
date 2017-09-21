@@ -1,0 +1,19 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ru.job4j</groupId>
+	<artifactId>dkitrish</artifactId>
+	<packaging>pom</packaging>
+	<version>2.0</version>
+	<name>java-a-to-z_junior</name>
+	<url>http://job4j.ru</url>
+	
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.buils.sourceEncoding>UTF-8</project.buils.sourceEncoding>
+	</properties>
+	
+	<modules>
+		<module>chapter_001</module>
+	</modules>
+</project>
