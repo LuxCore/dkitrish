@@ -12,6 +12,7 @@ import static org.junit.Assert.assertThat;
  *	@version 1.0
  */
 public class CalculateTest {
+
 	/**
 	 *	Test method.
 	 */

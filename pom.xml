@@ -6,17 +6,18 @@
 	<version>2.0</version>
 	<name>java-a-to-z_junior</name>
 	<url>http://job4j.ru</url>
-	
+
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<project.buils.sourceEncoding>UTF-8</project.buils.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<modules>
 		<module>chapter_001</module>
+		<!-- <module>chapter_002</module> -->
 	</modules>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.hamcrest</groupId>
@@ -24,6 +25,7 @@
 			<version>1.3</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -31,7 +33,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -54,6 +56,17 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<!-- Необходим для IDE, чтобы она знала, какую версию JDK использовать -->
+			<!-- для сборки проекта. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<compilerVersion>1.8</compilerVersion>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
