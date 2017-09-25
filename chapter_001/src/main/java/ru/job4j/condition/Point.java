@@ -39,7 +39,7 @@ public class Point {
 	 *	@return boolean
 	 */
 	public boolean isPointBelongToALine(int k, int b) {
-		return y == k * x + b ? true : false;
+		return y == k * x + b;
 	}
 
 	/**
