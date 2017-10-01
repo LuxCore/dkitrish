@@ -20,4 +20,19 @@ public class Max {
 	public int max(int first, int second) {
 		return first > second ? first : second;
 	}
+
+	/**
+	 *	Method seeks maximum value of three given integers.
+	 *
+	 *	@param first First parameter.
+	 *	@param second Second parameter.
+	 *	@param third Third parameter.
+	 *
+	 *	@return int maximum integer.
+	 */
+	public int max(int first, int second, int third) {
+		int tmpMax = max(first, second);
+		tmpMax = max(tmpMax, third);
+		return tmpMax;
+	}
 }

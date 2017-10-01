@@ -14,12 +14,22 @@ import static org.hamcrest.core.Is.is;
 public class MaxTest {
 
 	/**
-	 *	Tests max function.
+	 *	Tests max(int first, int second) function.
 	 */
 	@Test
 	public void testMax() {
 		Max max = new Max();
 		int result = max.max(54, 69);
+		assertThat(result, is(69));
+	}
+
+	/**
+	 *	Tests max(int first, int second, int third) function.
+	 */
+	@Test
+	public void testMaxOfThreeInt() {
+		Max max = new Max();
+		int result = max.max(23, 46, 69);
 		assertThat(result, is(69));
 	}
 }
