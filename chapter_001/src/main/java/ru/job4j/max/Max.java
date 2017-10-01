@@ -31,8 +31,6 @@ public class Max {
 	 *	@return int maximum integer.
 	 */
 	public int max(int first, int second, int third) {
-		int tmpMax = max(first, second);
-		tmpMax = max(tmpMax, third);
-		return tmpMax;
+		return max(max(first, second), third);
 	}
 }
