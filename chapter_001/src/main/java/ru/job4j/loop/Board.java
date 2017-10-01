@@ -26,22 +26,8 @@ public class Board {
 				if ((row % 2 > 0 && col % 2 > 0) || (row % 2 == 0 && col % 2 == 0)) {
 					board.append("X");
 				} else {
-					board.append("-");
+					board.append(" ");
 				}
-
-				/*if (row % 2 > 0) {
-					if (col % 2 > 0) {
-						board.append("X");
-					} else {
-						board.append("-");
-					}
-				} else {
-					if (col % 2 > 0) {
-						board.append("-");
-					} else {
-						board.append("X");
-					}
-				}*/
 			}
 
 			if (row != height) {

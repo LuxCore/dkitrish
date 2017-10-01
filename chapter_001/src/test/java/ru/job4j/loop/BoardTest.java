@@ -23,7 +23,7 @@ public class BoardTest {
 		String result = board.paint(3, 3);
 
 		final String nl = System.getProperty("line.separator");
-		String expect = String.format("X-X%s-X-%sX-X", nl, nl);
+		String expect = String.format("X X%s X %sX X", nl, nl);
 
 		assertThat(result, is(expect));
 	}
@@ -37,7 +37,7 @@ public class BoardTest {
 		String result = board.paint(6, 9);
 
 		final String nl = System.getProperty("line.separator");
-		String expect = String.format("X-X-X-%s-X-X-X%sX-X-X-%s-X-X-X%sX-X-X-%s-X-X-X%sX-X-X-%s-X-X-X%sX-X-X-", nl, nl, nl, nl, nl, nl, nl, nl);
+		String expect = String.format("X X X %s X X X%sX X X %s X X X%sX X X %s X X X%sX X X %s X X X%sX X X ", nl, nl, nl, nl, nl, nl, nl, nl);
 
 		assertThat(result, is(expect));
 	}
