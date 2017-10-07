@@ -21,17 +21,13 @@ public class BubbleSort {
 			return null;
 		}
 
-		int count = array.length - 2;
-
-		do {
-			for (int i = 0; i <= count; i++) {
-				if (array[i] > array[i + 1]) {
-					swap(array, i, i + 1);
+		for (int i = array.length - 1; i > 0; i--) {
+			for (int j = 0; j < i; j++) {
+				if (array[j] > array[j + 1]) {
+					swap(array, j, j + 1);
 				}
 			}
-
-			count--;
-		} while (count >= 0);
+		}
 
 		return array;
 	}
