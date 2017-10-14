@@ -14,7 +14,7 @@ public class RotateArray {
 	 *
 	 * @param array Given array.
 	 *
-	 * @return int[] Inverted array.
+	 * @return int[][] Rotated array.
 	 */
 	public int[][] rotate(int[][] array) {
 		if (array == null || array.length > 0 && array[0].length == 0) {
@@ -63,7 +63,7 @@ public class RotateArray {
 	 * @param k First index of second element.
 	 * @param l Second index of second element.
 	 */
-	public void swap(int[][] array, int i, int j, int k, int l) {
+	public static void swap(int[][] array, int i, int j, int k, int l) {
 		array[i][j] += array[k][l];
 		array[k][l] = array[i][j] - array[k][l];
 		array[i][j] -= array[k][l];

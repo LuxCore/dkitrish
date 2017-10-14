@@ -39,7 +39,7 @@ public class BubbleSort {
 	 * @param first First element that must be moved in place of second element.
 	 * @param second Second element that must be moved in place of first element.
 	 */
-	public void swap(int[] array, int first, int second) {
+	public static void swap(int[] array, int first, int second) {
 		int tmp = array[first];
 		array[first] = array[second];
 		array[second] = tmp;
