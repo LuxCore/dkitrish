@@ -5,26 +5,36 @@ import java.util.Arrays;
 /**
  * Combining of two sorted arrays.
  *
- * @author Denis.Kitrish
- * @since 22.10.2017
- * @version 1.0
+ * @author Denis.Kitrish (Denis.Kitrish@Yandex.ua)
+ * @since 07.11.2017
+ * @version 2.0
  */
 public class CombineArrays {
 	/**
 	 * Combines two sorted arrays using API.
 	 *
-	 * @param array1 String where needed to find a substring.
-	 * @param array2 Search string.
+	 * @param array1 First sorted array.
+	 * @param array2 Second sorted array.
 	 *
-	 * @return byte[] If string contains sub then true.
+	 * @return byte[] Result sorted array.
 	 */
 	public byte[] combine(byte[] array1, byte[] array2) {
-		byte[] result = new byte[array1.length + array2.length];
-		System.arraycopy(array1, 0, result, 0, array1.length);
-		System.arraycopy(array2, 0, result, array1.length, array2.length);
+		// Result sorted (without sorting) array that will combine two
+		// sorted arrays.
+		byte[] ra = new byte[array1.length + array2.length];
+		// Counters for arrays.
+		byte i = 0, j = 0, k = 0;
 
-		Arrays.sort(result);
+		do {
+			if (i < array1.length && j < array2.length) {
+				ra[k++] = array1[i] <= array2[j] ? array1[i++] : array2[j++];
+			} else if (i < array1.length && j == array2.length) {
+				ra[k++] = array1[i++];
+			} else if (i == array1.length && j < array2.length) {
+				ra[k++] = array2[j++];
+			}
+		} while (i + j < array1.length + array2.length);
 
-		return result;
+		return ra;
 	}
 }

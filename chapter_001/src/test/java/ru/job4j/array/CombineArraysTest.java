@@ -24,7 +24,10 @@ public class CombineArraysTest {
 		byte[] array2 = {1, 9, 15, 25, 29, 29, 55};
 
 		byte[] result = ca.combine(array1, array2);
-		byte[] expected = {1, 1, 3, 5, 9, 15, 15, 15, 16, 20, 25, 29, 29, 29, 39, 55, 64, 65, 69};
+		byte[] expected = {
+			1, 1, 3, 5, 9, 15, 15, 15, 16, 20, 25, 29, 29, 29, 39, 55, 64,
+			65, 69
+		};
 
 		assertThat(result, is(expected));
 	}
