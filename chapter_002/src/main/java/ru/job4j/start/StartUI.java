@@ -187,7 +187,7 @@ public class StartUI {
 		String taskName = this.input.ask("Введите наименование задачи, которую необходимо найти/показать: ");
 		Item[] items = this.tracker.findByName(taskName);
 
-		System.out.println("Список задач с наименованием " + taskName + ":\n");
+		System.out.println("Список задач с наименованием " + taskName + ":");
 		this.showTaskList(items);
 	}
 
