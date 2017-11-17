@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-// import java.util.UUID;
+import java.util.UUID;
 import java.util.Arrays;
 
 /**
@@ -38,7 +38,7 @@ public class Tracker {
 	 */
 	public void update(Item item) {
 		for (int i = 0; i < this.items.length; i++) {
-			if (item.getId().equals(this.items[i].getId())) {
+			if (item != null && item.getId().equals(this.items[i].getId())) {
 				this.items[i] = item;
 				break;
 			}
@@ -53,12 +53,66 @@ public class Tracker {
 	 */
 	public void delete(Item item) {
 		for (int i = 0; i < this.items.length; i++) {
-			if (item.getId().equals(this.items[i].getId())) {
+			if (item != null && item.getId().equals(this.items[i].getId())) {
 				System.arraycopy(this.items, i + 1, this.items, i, this.items.length - i - 1);
 				position--;
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Finds a task by its id.
+	 *
+	 * @param id ID of task.
+	 *
+	 * @return Item Found task by its id.
+	 */
+	public Item findById(String id) {
+		for (Item item : this.items) {
+			if (id != null && id.equals(item.getId())) {
+				return item;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Finds all task by name.
+	 *
+	 * @param key Search name.
+	 *
+	 * @return Item[] All tasks whose name match to key.
+	 */
+	public Item[] findByName(String key) {
+		// Для начала создадим вспомогательный массив такой же длины,
+		// как и основной.
+		Item[] foundItemsByName = new Item[position];
+
+		// Счётчик для вспомогательного массива.
+		int j = 0;
+
+		for (int i = 0; i < this.items.length; i++) {
+			// Т.к. все задания располагаются относительно начала массива,
+			// то нет смысла искать по всему массиву, т.е. прервём цикл
+			// на первом пустом элементе.
+			if (this.items[i] == null) {
+				break;
+			}
+
+			if (key != null && key.equals(this.items[i].getName())) {
+				foundItemsByName[j++] = this.items[i];
+			}
+		}
+
+		if (foundItemsByName != null) {
+			foundItemsByName = Arrays.copyOf(foundItemsByName, j);
+		} else {
+			foundItemsByName = null;
+		}
+
+		return foundItemsByName;
 	}
 
 	/**
@@ -85,63 +139,12 @@ public class Tracker {
 	}
 
 	/**
-	 * Finds all task by name.
-	 *
-	 * @param key Search name.
-	 *
-	 * @return Item[] All tasks whose name match to key.
-	 */
-	public Item[] findByName(String key) {
-		// Для начала создадим вспомогательный массив такой же длины,
-		// как и основной.
-		Item[] foundItemsByName = new Item[this.items.length];
-
-		// Счётчик для вспомогательного массива.
-		int j = 0;
-
-		for (int i = 0; i < this.items.length; i++) {
-			// Т.к. все задания располагаются относительно начала массива,
-			// то нет смысла искать по всему массиву, т.е. прервём цикл
-			// на первом пустом элементе.
-			if (this.items[i] == null) {
-				break;
-			}
-
-			if (key.equals(this.items[i].getName())) {
-				foundItemsByName[j++] = this.items[i];
-			}
-		}
-
-		foundItemsByName = Arrays.copyOf(foundItemsByName, j);
-
-		return foundItemsByName;
-	}
-
-	/**
-	 * Finds a task by its id.
-	 *
-	 * @param id ID of task.
-	 *
-	 * @return Item Found task by its id.
-	 */
-	public Item findById(String id) {
-		for (Item item : this.items) {
-			if (id.equals(item.getId())) {
-				return item;
-			}
-		}
-
-		return null;
-	}
-
-	/**
 	 * Generator of id for tasks. It generates ids using free position index
 	 * of array of tasks.
 	 *
 	 * @return String ID for new task.
 	 */
 	private String generateItemId() {
-		return String.valueOf(position);
-		// return UUID.randomUUID().toString();
+		return UUID.randomUUID().toString();
 	}
 }

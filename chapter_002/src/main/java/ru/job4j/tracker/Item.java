@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
-// import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Element of tracking system that can be task, bug or someone else.
@@ -9,7 +10,6 @@ public class Item {
 	/**
 	 * Identifier.
 	 */
-//	private UUID id;
 	private String id;
 
 	/**
@@ -37,24 +37,29 @@ public class Item {
 	 */
 	private int commentInsertPosition;
 
+	/**
+	 * Constructs an item with given name and description. Date and time
+	 * are taken from current system clock in milliseconds.
+	 *
+	 * @param name Name of item.
+	 * @param desc Description of item.
+	 */
 	public Item(String name, String desc) {
 		this(name, desc, System.currentTimeMillis());
 	}
 
+	/**
+	 * Constructs an item using name, desc and date/time.
+	 *
+	 * @param name Name of item.
+	 * @param desc Description of item.
+	 * @param created Date and time of item creation in milliseconds.
+	 */
 	public Item(String name, String desc, long created) {
-		// this.id = UUID.randomUUID();
 		this.name = name;
 		this.desc = desc;
 		this.created = created;
 	}
-
-/*	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public UUID getId() {
-		return this.id;
-	}*/
 
 	public void setId(String id) {
 		this.id = id;
@@ -100,5 +105,16 @@ public class Item {
 		if (commentInsertPosition < this.comments.length) {
 			this.comments[commentInsertPosition++] = comment;
 		}
+	}
+
+	@Override
+	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+		StringBuilder sb = new StringBuilder();
+		sb.append("[id = ").append(id).append(" | ")
+			.append("name = ").append(name).append(" | ")
+			.append("desc = ").append(desc).append(" | ")
+			.append("created = ").append(sdf.format(new Date(created))).append("]");
+		return sb.toString();
 	}
 }
