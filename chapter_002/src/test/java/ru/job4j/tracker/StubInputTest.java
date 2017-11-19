@@ -24,17 +24,11 @@ public class StubInputTest {
 	@Before
 	public void init() {
 		this.tracker = new Tracker();
-		this.input = new StubInput();
 		Random rnd = new Random(69);
 
 		for (int i = 0; i < 20; i++) {
 			this.tracker.add(new Item("Task " + rnd.nextInt(69), "Desc " + (i + 1)));
 		}
-
-		// int index = 0;
-		// for (Item task : this.tracker.findAll()) {
-		// 	System.out.println(index++ + ": " + task);
-		// }
 	}
 
 	/**

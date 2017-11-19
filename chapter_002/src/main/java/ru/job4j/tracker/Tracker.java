@@ -74,6 +74,7 @@ public class Tracker {
 		for (Item item : this.items) {
 			if (id != null && id.equals(item.getId())) {
 				task = item;
+				break;
 			}
 		}
 
