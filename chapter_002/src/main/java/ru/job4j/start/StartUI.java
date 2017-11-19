@@ -79,7 +79,7 @@ public class StartUI {
 	/**
 	 * Main cycle for interaction with user and process his input answers.
 	 */
-	private void init() {
+	public void init() {
 		boolean exit = false;
 
 		while (!exit) {
