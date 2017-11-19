@@ -56,15 +56,4 @@ public class TrackerTest {
 
 		assertThat(result, is("Fourth task :-)"));
 	}
-
-	/*
-	@Test
-	public void testFindItemsByName() {
-
-	}
-
-	@Test
-	public void testFindItemById() {
-
-	}*/
 }

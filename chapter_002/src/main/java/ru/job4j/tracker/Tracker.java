@@ -69,13 +69,15 @@ public class Tracker {
 	 * @return Item Found task by its id.
 	 */
 	public Item findById(String id) {
+		Item task = null;
+
 		for (Item item : this.items) {
 			if (id != null && id.equals(item.getId())) {
-				return item;
+				task = item;
 			}
 		}
 
-		return null;
+		return task;
 	}
 
 	/**
