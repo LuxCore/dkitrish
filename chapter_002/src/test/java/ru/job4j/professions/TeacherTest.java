@@ -14,22 +14,40 @@ import static org.junit.Assert.assertThat;
  * @version 1.0
  */
 public class TeacherTest {
-	// Имя учителя.
-	Name sensei = new Name("Сэнсей");
+	/**
+	 * Имя учителя.
+	 */
+	private Name sensei = new Name("Сэнсей");
 
-	// Китайское образование.
-	Education chinaEdu = new Education("Вин-чунь", "Чёрный");
+	/**
+	 * Китайское образование.
+	 */
+	private Education chinaEdu = new Education("Вин-чунь", "Чёрный");
 
-	// Период практики / стаж.
-	Period manyYears = Period.ofYears(5);
+	/**
+	 * Период практики / стаж.
+	 */
+	private Period manyYears = Period.ofYears(5);
 
-	Degree degree = new Degree("Заслуженный мастер вин-чунь");
-	String subject = "Wing-Chun";
+	/**
+	 * Degree of person.
+	 */
+	private Degree degree = new Degree("Заслуженный мастер вин-чунь");
 
-	// Профессия учителя.
-	Teacher teacherSensei = new Teacher(sensei, chinaEdu, manyYears, degree, subject);
+	/**
+	 * Subject person should learn.
+	 */
+	private String subject = "Wing-Chun";
 
-	Student bruceLee = new Student(new Name("Bruce", "Lee"));
+	/**
+	 * Профессия учителя.
+	 */
+	private Teacher teacherSensei = new Teacher(sensei, chinaEdu, manyYears, degree, subject);
+
+	/**
+	 * Student Bruce Lee.
+	 */
+	private Student bruceLee = new Student(new Name("Bruce", "Lee"));
 
 	/**
 	 * Сенсей пытается объяснить тему урока.

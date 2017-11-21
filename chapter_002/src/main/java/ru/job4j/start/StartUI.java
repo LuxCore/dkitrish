@@ -199,6 +199,11 @@ public class StartUI {
 		this.showTaskList(this.tracker.findAll());
 	}
 
+	/**
+	 * Print all tasks.
+	 *
+	 * @param items Items of tracker.
+	 */
 	private void showTaskList(Item[] items) {
 		byte index = 1;
 		for (Item task : items) {

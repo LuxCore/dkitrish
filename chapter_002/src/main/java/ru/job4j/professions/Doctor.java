@@ -2,19 +2,39 @@ package ru.job4j.professions;
 
 import java.time.Period;
 
-/** Профессия доктора. */
+/**
+ * Doctor profession.
+ */
 public class Doctor extends Profession {
-
+	/**
+	 * Constructs doctor.
+	 *
+	 * @param name Name of doctor.
+	 * @param education Education of doctor.
+	 * @param experience Experience of doctor.
+	 */
 	public Doctor(Name name, Education education, Period experience) {
 		super(name, education, experience);
 	}
 
-	/** Осмотреть пациента и поставить диагноз */
+	/**
+	 * Examine the patient and make a diagnosis.
+	 *
+	 * @param patient Patient inspected by doctor.
+	 *
+	 * @return String Process of inspecting of patient.
+	 */
 	public String inspect(Patient patient) {
 		return "Доктор " + this.getName() + " осматривает пациента " + patient;
 	}
 
-	/** Ставить диагноз пациенту */
+	/**
+	 * Doctor make a diagnosis.
+	 *
+	 * @param patient Patient inspected by doctor.
+	 *
+	 * @return Diagnosis
+	 */
 	public Diagnosis makeDiagnosis(Patient patient) {
 		Diagnosis diagnosis =
 				new Diagnosis("Доктор " + this.getName() + " ставит диагноз "
@@ -23,7 +43,13 @@ public class Doctor extends Profession {
 		return  diagnosis;
 	}
 
-	/** Выписать лечение пациенту */
+	/**
+	 * Prescribe treatment to the patient.
+	 *
+	 * @param patient Patient inspected by doctor.
+	 *
+	 * @return String
+	 */
 	public String writeTreatment(Patient patient) {
 		return "Доктор " + this.getName() + " выписал лечение пациенту "
 				+ patient;

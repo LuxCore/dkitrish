@@ -14,20 +14,30 @@ import static org.junit.Assert.assertThat;
  * @version 1.0
  */
 public class EngineerTest {
-	// Имя доктора.
-	Name ivan = new Name("Иван");
+	/**
+	 * Имя доктора.
+	 */
+	private Name ivan = new Name("Иван");
 
-	// Внеземное образование доктора Стрейнджа.
-	Education highEdu = new Education("Информационные технологии", "Красный");
+	/**
+	 * Внеземное образование доктора Стрейнджа.
+	 */
+	private Education highEdu = new Education("Информационные технологии", "Красный");
 
-	// Период практики / стаж.
-	Period twoYears = Period.ofYears(2);
+	/**
+	 * Период практики / стаж.
+	 */
+	private Period twoYears = Period.ofYears(2);
 
-	// Категория.
-	Category category = new Category(2);
+	/**
+	 * Категория.
+	 */
+	private Category category = new Category(2);
 
-	// Профессия инженера.
-	Engineer engineerIvan = new Engineer(ivan, highEdu, twoYears, category);
+	/**
+	 * Профессия инженера.
+	 */
+	private Engineer engineerIvan = new Engineer(ivan, highEdu, twoYears, category);
 
 	/**
 	 * Проводим тест Ивану на повышение категории.

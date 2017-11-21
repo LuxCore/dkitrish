@@ -8,8 +8,15 @@ import static org.hamcrest.core.Is.is;
  * Тестируем систему учёта заданий.
  */
 public class TrackerTest {
+	/**
+	 * Tracker of tasks.
+	 */
 	private Tracker tracker = new Tracker();
 
+	/**
+	 * Tests an adding of item to tracker.
+	 * Following method also is checked like auxilary: findAll().
+	 */
 	@Test
 	public void testAddItem() {
 		Item task = new Item("task1", "first task");
@@ -20,6 +27,10 @@ public class TrackerTest {
 		assertThat(result, is(task));
 	}
 
+	/**
+	 * Tests of update of item in tracker.
+	 * Following methods also are checked like auxilary: add(), findById().
+	 */
 	@Test
 	public void testUpdateItem() {
 		Item task1 = new Item("task1", "first task", 456987L);
@@ -35,6 +46,10 @@ public class TrackerTest {
 		assertThat(result, is("task2"));
 	}
 
+	/**
+	 * Tests deletion of item from tracker.
+	 * Following methods also are checked like auxilary: add(), findByName().
+	 */
 	@Test
 	public void testDeleteItem() {
 		Item task1 = new Item("task one", "First task", 789654L);

@@ -15,7 +15,14 @@ import java.util.Random;
  *
  */
 public class StubInputTest {
+	/**
+	 * Tracker of tasks.
+	 */
 	private Tracker tracker;
+
+	/**
+	 * Any kind input that implements Input.
+	 */
 	private Input input;
 
 	/**
