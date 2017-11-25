@@ -24,6 +24,11 @@ public class MenuTracker {
 	private UserAction[] actions;
 
 	/**
+	 * Range of menu numbers.
+	 */
+	private int[] menuNumRange;
+
+	/**
 	 * Constructs MenuTracker with tracker and input type.
 	 *
 	 * @param tracker Single instance of tracker.
@@ -40,6 +45,7 @@ public class MenuTracker {
 	 */
 	private void init() {
 		this.registerActions();
+		this.menuNumRange = new int[] {1, 2, 3, 4, 5, 6, 7};
 	}
 
 	/**
@@ -360,8 +366,10 @@ public class MenuTracker {
 	 * @return Number of selected menu item.
 	 */
 	public int selectActionNum() {
-		String answer = this.input.ask("Выберите подходящий пункт меню (введите соответствующее число): ");
-		return Integer.valueOf(answer);
+		// String answer = this.input.ask("Выберите подходящий пункт меню (введите соответствующее число): ");
+		int answer = this.input.ask("Выберите подходящий пункт меню (введите соответствующее число): ", this.menuNumRange);
+		// return Integer.valueOf(answer);
+		return answer;
 	}
 
 	/**
@@ -386,6 +394,15 @@ public class MenuTracker {
 		for (Item task : items) {
 			System.out.println(index++ + ": " + task);
 		}
+	}
+
+	/**
+	 * Gets range of available menu numbers to user.
+	 *
+	 * @return Available menu numbers.
+	 */
+	public int[] getMenuNumRange() {
+		return this.menuNumRange;
 	}
 }
 

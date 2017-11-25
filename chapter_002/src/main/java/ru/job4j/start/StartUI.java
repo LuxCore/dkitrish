@@ -1,6 +1,6 @@
 package ru.job4j.start;
 
-import ru.job4j.tracker.ConsoleInput;
+import ru.job4j.tracker.ValidInput;
 import ru.job4j.tracker.Tracker;
 import ru.job4j.tracker.Input;
 
@@ -35,7 +35,7 @@ public class StartUI {
 	 * @param args Console arguments for launch of Tracker app.
 	 */
 	public static void main(String[] args) {
-		ConsoleInput input = new ConsoleInput();
+		Input input = new ValidInput();
 		new StartUI(new Tracker(), input).init();
 	}
 

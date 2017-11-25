@@ -30,7 +30,21 @@ public class StubInput implements Input {
 	 *
 	 * @return Answer from virtual user.
 	 */
+	@Override
 	public String ask(String question) {
 		return answers[position++];
+	}
+
+	/**
+	 * Stub implementaion of asking question to user and returning result from console.
+	 *
+	 * @param question Simply non-usable parameter.
+	 * @param range Range of valid numbers of menu items.
+	 *
+	 * @return Answer from virtual user.
+	 */
+	@Override
+	public int ask(String question, int[] range) {
+		return Integer.valueOf(answers[position++]);
 	}
 }

@@ -12,4 +12,14 @@ public interface Input {
 	 * @return String User answer.
 	 */
 	String ask(String question);
+
+	/**
+	 * Asks a question to user.
+	 *
+	 * @param question Any question to user after wich user must type answer.
+	 * @param range Available range of numbers of actions user can select/type.
+	 *
+	 * @return Converted user answer from string to int.
+	 */
+	int ask(String question, int[] range);
 }
