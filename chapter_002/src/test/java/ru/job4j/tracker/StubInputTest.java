@@ -1,7 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.Random;
+
 import org.junit.Before;
-// import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 
@@ -9,10 +10,8 @@ import static org.hamcrest.core.Is.is;
 
 import ru.job4j.start.StartUI;
 
-import java.util.Random;
-
 /**
- *
+ * Check our functionality of tracker managment.
  */
 public class StubInputTest {
 	/**

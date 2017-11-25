@@ -4,19 +4,26 @@ import java.util.UUID;
 import java.util.Arrays;
 
 /**
- * Учёт заданий.
+ * Task tracker.
  */
 public class Tracker {
 	/**
 	 * List of proposals.
 	 */
-	private Item[] items = new Item[100];
+	private Item[] items;
 
 	/**
 	 * Позиция в массиве items, отображающая ячейку, в которую можно добавлять
 	 * новые задания.
 	 */
-	private int position = 0;
+	private int position;
+
+	/**
+	 * Hidden constructor.
+	 */
+	public Tracker() {
+		this.items = new Item[100];
+	}
 
 	/**
 	 * Adding of task to the last free position in items array.
