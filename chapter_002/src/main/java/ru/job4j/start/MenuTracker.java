@@ -44,19 +44,30 @@ public class MenuTracker {
 	 * Initializing the MenuTracker.
 	 */
 	private void init() {
-		this.registerActions();
 		this.menuNumRange = new int[] {1, 2, 3, 4, 5, 6, 7};
+		this.registerActions();
 	}
 
 	/**
 	 * Add item event.
 	 */
-	private class AddItemAction implements UserAction {
+	private class AddItemAction extends BaseAction {
+		/**
+		 * Constructor of item addition.
+		 *
+		 * @param number Number of menu item.
+		 * @param desc Description of menu item.
+		 */
+		AddItemAction(int number, String desc) {
+			super(number, desc);
+		}
+
 		/**
 		 * Number of menu item.
 		 *
 		 * @return Number of add item action.
 		 */
+		@Override
 		public int number() {
 			return 1;
 		}
@@ -66,6 +77,7 @@ public class MenuTracker {
 		 *
 		 * @return The description of menu item of item addition.
 		 */
+		@Override
 		public String description() {
 			return "Добавить задачу";
 		}
@@ -76,6 +88,7 @@ public class MenuTracker {
 		 * @param tracker Task tracker.
 		 * @param input Type of input.
 		 */
+		@Override
 		public void execute(Tracker tracker, Input input) {
 			System.out.println("----- Создание задачи -----");
 
@@ -87,21 +100,22 @@ public class MenuTracker {
 
 			System.out.println("Задача с ID = " + task.getId() + " успешно создана.");
 		}
-
-		/**
-		 * Notifies a user about action is performing.
-		 *
-		 * @return Information about menu item that available to a user for selection.
-		 */
-		public String info() {
-			return String.format("\t%s: %s", this.number(), this.description());
-		}
 	}
 
 	/**
 	 * This action allows a user to delete any task from tracker.
 	 */
-	private static class DeleteItemAction implements UserAction {
+	private static class DeleteItemAction extends BaseAction {
+		/**
+		 * Constructor of item addition.
+		 *
+		 * @param number Number of menu item.
+		 * @param desc Description of menu item.
+		 */
+		DeleteItemAction(int number, String desc) {
+			super(number, desc);
+		}
+
 		/**
 		 * Number of menu item.
 		 *
@@ -135,21 +149,22 @@ public class MenuTracker {
 
 			System.out.println("Задача с ID = " + task.getId() + " успешно удалена.");
 		}
-
-		/**
-		 * Notifies a user about action is performing.
-		 *
-		 * @return Information about menu item that available to a user for selection.
-		 */
-		public String info() {
-			return String.format("\t%s: %s", this.number(), this.description());
-		}
 	}
 
 	/**
 	 * Event of search item by ID.
 	 */
-	private class FindItemByIdAction implements UserAction {
+	private class FindItemByIdAction extends BaseAction {
+		/**
+		 * Constructor of item addition.
+		 *
+		 * @param number Number of menu item.
+		 * @param desc Description of menu item.
+		 */
+		FindItemByIdAction(int number, String desc) {
+			super(number, desc);
+		}
+
 		/**
 		 * Number of menu item.
 		 *
@@ -182,21 +197,22 @@ public class MenuTracker {
 
 			System.out.println("Задача с искомым ID найдена: " + item);
 		}
-
-		/**
-		 * Notifies a user about action is performing.
-		 *
-		 * @return Information about menu item that available to a user for selection.
-		 */
-		public String info() {
-			return String.format("\t%s: %s", this.number(), this.description());
-		}
 	}
 
 	/**
 	 * Event of search items by name.
 	 */
-	private class FindItemsByNameAction implements UserAction {
+	private class FindItemsByNameAction extends BaseAction {
+		/**
+		 * Constructor of item addition.
+		 *
+		 * @param number Number of menu item.
+		 * @param desc Description of menu item.
+		 */
+		FindItemsByNameAction(int number, String desc) {
+			super(number, desc);
+		}
+
 		/**
 		 * Number of menu item.
 		 *
@@ -230,21 +246,22 @@ public class MenuTracker {
 			System.out.println("Список задач с наименованием " + taskName + ":");
 			showTaskList(items);
 		}
-
-		/**
-		 * Notifies a user about action is performing.
-		 *
-		 * @return Information about menu item that available to a user for selection.
-		 */
-		public String info() {
-			return String.format("\t%s: %s", this.number(), this.description());
-		}
 	}
 
 	/**
 	 * Event of search all items in tracker.
 	 */
-	private class FindAllItemsAction implements UserAction {
+	private class FindAllItemsAction extends BaseAction {
+		/**
+		 * Constructor of item addition.
+		 *
+		 * @param number Number of menu item.
+		 * @param desc Description of menu item.
+		 */
+		FindAllItemsAction(int number, String desc) {
+			super(number, desc);
+		}
+
 		/**
 		 * Number of menu item.
 		 *
@@ -273,21 +290,22 @@ public class MenuTracker {
 			System.out.println("----- Список всех задач -----");
 			showTaskList(tracker.findAll());
 		}
-
-		/**
-		 * Notifies a user about action is performing.
-		 *
-		 * @return Information about menu item that available to a user for selection.
-		 */
-		public String info() {
-			return String.format("\t%s: %s", this.number(), this.description());
-		}
 	}
 
 	/**
 	 * Event of quit the tracker app.
 	 */
-	private class QuitTrackerAction implements UserAction {
+	private class QuitTrackerAction extends BaseAction {
+		/**
+		 * Constructor of item addition.
+		 *
+		 * @param number Number of menu item.
+		 * @param desc Description of menu item.
+		 */
+		QuitTrackerAction(int number, String desc) {
+			super(number, desc);
+		}
+
 		/**
 		 * Number of menu item.
 		 *
@@ -315,15 +333,6 @@ public class MenuTracker {
 		 */
 		public void execute(Tracker tracker, Input input) {
 		}
-
-		/**
-		 * Notifies a user about action is performing.
-		 *
-		 * @return Information about menu item that available to a user for selection.
-		 */
-		public String info() {
-			return String.format("\t%s: %s", this.number(), this.description());
-		}
 	}
 
 	/**
@@ -345,30 +354,26 @@ public class MenuTracker {
 	 * Regisering of all needed actions.
 	 */
 	private void registerActions() {
-		int numOfActions = 7;
 		int numOfAction = 0;
-		this.actions = new UserAction[numOfActions];
+		this.actions = new UserAction[this.menuNumRange.length];
 
-		this.actions[numOfAction++] = this.new AddItemAction();
-		this.actions[numOfAction++] = new UpdateItemAction();
-		this.actions[numOfAction++] = new MenuTracker.DeleteItemAction();
-		this.actions[numOfAction++] = this.new FindItemByIdAction();
-		this.actions[numOfAction++] = this.new FindItemsByNameAction();
-		this.actions[numOfAction++] = this.new FindAllItemsAction();
-		this.actions[numOfAction++] = this.new QuitTrackerAction();
+		// Arguments in constructors are used as stubs because they don`t carry any meaning.
+		this.actions[numOfAction++] = this.new AddItemAction(numOfAction + 1, "Добавить задачу");
+		this.actions[numOfAction++] = new UpdateItemAction(numOfAction + 1, "Обносить задачу");
+		this.actions[numOfAction++] = new MenuTracker.DeleteItemAction(numOfAction + 1, "Удалить задачу");
+		this.actions[numOfAction++] = this.new FindItemByIdAction(numOfAction + 1, "Поиск задачи по идентификатору");
+		this.actions[numOfAction++] = this.new FindItemsByNameAction(numOfAction + 1, "Поиск задач по имени");
+		this.actions[numOfAction++] = this.new FindAllItemsAction(numOfAction + 1, "Поиск всех задач");
+		this.actions[numOfAction++] = this.new QuitTrackerAction(numOfAction + 1, "Завершить приложение");
 	}
 
 	/**
 	 * Offers to user to select required menu item.
-	 * !!! It is necessary to add handling of irregular input from user or
-	 * throw the exception.
 	 *
 	 * @return Number of selected menu item.
 	 */
 	public int selectActionNum() {
-		// String answer = this.input.ask("Выберите подходящий пункт меню (введите соответствующее число): ");
 		int answer = this.input.ask("Выберите подходящий пункт меню (введите соответствующее число): ", this.menuNumRange);
-		// return Integer.valueOf(answer);
 		return answer;
 	}
 
@@ -410,7 +415,17 @@ public class MenuTracker {
  * This action allows a user to replace existing information of certain task
  * with new one.
  */
-class UpdateItemAction implements UserAction {
+class UpdateItemAction extends BaseAction {
+	/**
+	 * Constructor of item addition.
+	 *
+	 * @param number Number of menu item.
+	 * @param desc Description of menu item.
+	 */
+	UpdateItemAction(int number, String desc) {
+		super(number, desc);
+	}
+
 	/**
 	 * Number of menu item.
 	 *
@@ -447,14 +462,5 @@ class UpdateItemAction implements UserAction {
 		tracker.update(task);
 
 		System.out.println("Задача с ID = " + task.getId() + " успешно обновлена.");
-	}
-
-	/**
-	 * Notifies a user about action is performing.
-	 *
-	 * @return Information about menu item that available to a user for selection.
-	 */
-	public String info() {
-		return String.format("\t%s: %s", this.number(), this.description());
 	}
 }
