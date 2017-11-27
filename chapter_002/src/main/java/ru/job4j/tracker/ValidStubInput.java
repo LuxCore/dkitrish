@@ -1,11 +1,20 @@
 package ru.job4j.tracker;
 
 /**
- * Exceptions in this class are printed out when user type wrong number of menu item.
+ * Stub input handling wrong selection of number of menu item.
  */
-public class ValidInput extends ConsoleInput {
+public class ValidStubInput extends StubInput {
 	/**
-	 * Console input with handling wrong answers from user.
+	 * Constructs virtual input with predefined answers.
+	 *
+	 * @param answers Predefined answers from virtual user.
+	 */
+	public ValidStubInput(String[] answers) {
+		super(answers);
+	}
+
+	/**
+	 * Stub input with handling wrong answers from user.
 	 * Handling of exceptions performs recursively.
 	 *
 	 * @param question Question to user.

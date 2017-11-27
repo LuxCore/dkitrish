@@ -45,6 +45,22 @@ public class StubInput implements Input {
 	 */
 	@Override
 	public int ask(String question, int[] range) {
-		return Integer.valueOf(answers[position++]);
+		int answer = -1;
+		boolean actionNumExists = false;
+
+		answer = Integer.valueOf(answers[position++]);
+
+		for (int num : range) {
+			if (answer == num) {
+				actionNumExists = true;
+				break;
+			}
+		}
+
+		if (!actionNumExists) {
+			throw new MenuItemNumberOutOfRangeException("Введённый номер действия не соответствует ни одному номеру меню.");
+		}
+
+		return answer;
 	}
 }
