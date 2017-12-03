@@ -42,7 +42,7 @@ public class StubInputTest {
 	 */
 	@Test
 	public void testCreateTask() {
-		this.input = new StubInput(new String[]{"1", "New task", "Desc for new task", "7"});
+		this.input = new ValidMenuNumberInput(new StubInput(new String[]{"69", "fgh", "1", "New task", "Desc for new task", "7"}));
 		new StartUI(this.tracker, this.input).init();
 		assertThat(this.tracker.findAll()[20].getName(), is("New task"));
 	}
@@ -53,7 +53,7 @@ public class StubInputTest {
 	@Test
 	public void testUpdateTask() {
 		String id = this.tracker.findByName("Task 10")[0].getId();
-		this.input = new StubInput(new String[]{"2", "New task", "Desc for new task", id, "7"});
+		this.input = new ValidMenuNumberInput(new StubInput(new String[]{"2", "New task", "Desc for new task", id, "69", "7"}));
 		new StartUI(this.tracker, this.input).init();
 		assertThat(this.tracker.findAll()[5].getName(), is("New task"));
 	}
@@ -65,7 +65,7 @@ public class StubInputTest {
 	public void testDeleteTask() {
 		String id1 = this.tracker.findByName("Task 14")[0].getId();
 		String id2 = this.tracker.findByName("Task 42")[0].getId();
-		this.input = new StubInput(new String[]{"3", id1, "3", id2, "7"});
+		this.input = new ValidMenuNumberInput(new StubInput(new String[]{"3", id1, "qwe", "3", id2, "7"}));
 
 		new StartUI(this.tracker, this.input).init();
 		assertThat(this.tracker.findAll().length, is(18));
