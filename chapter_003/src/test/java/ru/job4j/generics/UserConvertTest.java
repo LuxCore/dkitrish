@@ -1,6 +1,7 @@
 package ru.job4j.generics;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,30 +19,26 @@ public class UserConvertTest {
 	 */
 	@Test
 	public void testConversionListToMap() {
-		UserConvert uc = new UserConvert();
+		User user1 = new User(1, "John 1", "Doe 1");
+		User user2 = new User(2, "John 2", "Doe 2");
+		User user3 = new User(3, "John 3", "Doe 3");
+		User user4 = new User(4, "John 4", "Doe 4");
+
 		List<User> userList = new ArrayList<>();
-		fillUserList(userList, 10);
+		userList.add(user1);
+		userList.add(user2);
+		userList.add(user3);
+		userList.add(user4);
+
+		UserConvert uc = new UserConvert();
 		Map<Integer, User> userMap = uc.process(userList);
-		String result = userMap.toString();
-		String expected = "{1=John 4, 2=John 6, 3=John 8, 4=John 10, 5=John 12, 6=John 14, "
-				+ "7=John 16, 8=John 18, 9=John 20, 10=John 22}";
-		assertThat(result, is(expected));
-	}
 
-	/**
-	 * Auxiliary method to fill the List of users.
-	 *
-	 * @param list List of users.
-	 * @param amount Amount of list elements.
-	 */
-	private static void fillUserList(List<User> list, int amount) {
-		User user = null;
-		Integer id = list.size() + 1;
+		Map<Integer, User> expectedMap = new HashMap<>();
+		expectedMap.put(1, user1);
+		expectedMap.put(2, user2);
+		expectedMap.put(3, user3);
+		expectedMap.put(4, user4);
 
-		for (int i = 0; i < amount; i++) {
-			user = new User(id, "John " + ((id + 1) * 2), "Doe " + ((id + 1) * 2));
-			list.add(user);
-			id++;
-		}
+		assertThat(userMap, is(expectedMap));
 	}
 }
