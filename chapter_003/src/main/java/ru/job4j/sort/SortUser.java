@@ -31,13 +31,23 @@ public class SortUser {
 	}
 
 	/**
-	 * Sorts list of users by name and age.
+	 * Sorts list of users by name and age using two comparators.
 	 *
 	 * @param users List of users.
 	 */
-	public void sortByNameAndAge(List<User> users) {
+	public void sortByNameAndAgeUsingTwoComparators(List<User> users) {
 		Comparator<User> comp = new UserComparators.UserNameComparator()
 				.thenComparing(new UserComparators.UserAgeComparator());
+		Collections.sort(users, comp);
+	}
+
+	/**
+	 * Sorts list of users by name and age using one comparator.
+	 *
+	 * @param users List of users.
+	 */
+	public void sortByNameAndAgeUsingOneComparator(List<User> users) {
+		Comparator<User> comp = new UserComparators.UserNameAgeComparator();
 		Collections.sort(users, comp);
 	}
 }

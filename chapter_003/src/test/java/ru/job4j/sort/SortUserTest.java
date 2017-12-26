@@ -111,7 +111,7 @@ public class SortUserTest {
 	 * Tests sorting of List of users by name and age.
 	 */
 	@Test
-	public void testSortByNameAndAge() {
+	public void testSortByNameAndAgeUsingOneComparator() {
 		User user1 = new User("Christian 1", 54);
 		User user2 = new User("Christian 1111", 54);
 		User user3 = new User("Christian 1111", 60);
@@ -133,7 +133,49 @@ public class SortUserTest {
 		userList.add(user5);
 		userList.add(user7);
 
-		this.sortUser.sortByNameAndAge(userList);
+		this.sortUser.sortByNameAndAgeUsingOneComparator(userList);
+
+		List<User> expected = new ArrayList<>();
+		expected.add(user1);
+		expected.add(user2);
+		expected.add(user3);
+		expected.add(user4);
+		expected.add(user5);
+		expected.add(user6);
+		expected.add(user7);
+		expected.add(user8);
+		expected.add(user9);
+
+		assertThat(userList, is(expected));
+	}
+
+	/**
+	 * Tests sorting of List of users by name and age.
+	 */
+	@Test
+	public void testSortByNameAndAgeUsingTwoComparators() {
+		User user1 = new User("Christian 1", 54);
+		User user2 = new User("Christian 1111", 54);
+		User user3 = new User("Christian 1111", 60);
+		User user4 = new User("Christian 123456", 15);
+		User user5 = new User("Christian 123456", 26);
+		User user6 = new User("Christian 123456", 54);
+		User user7 = new User("Christian 22", 38);
+		User user8 = new User("Christian 22", 44);
+		User user9 = new User("Christian 222", 10);
+
+		List<User> userList = new ArrayList<>();
+		userList.add(user6);
+		userList.add(user3);
+		userList.add(user1);
+		userList.add(user2);
+		userList.add(user4);
+		userList.add(user8);
+		userList.add(user9);
+		userList.add(user5);
+		userList.add(user7);
+
+		this.sortUser.sortByNameAndAgeUsingTwoComparators(userList);
 
 		List<User> expected = new ArrayList<>();
 		expected.add(user1);
