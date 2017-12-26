@@ -1,9 +1,10 @@
 package ru.job4j.sort;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.Test;
 
@@ -24,14 +25,44 @@ public class SortUserTest {
 	 */
 	@Test
 	public void testSortUsingComparable() {
-		List<User> userList = new ArrayList<>();
-		fillUserList(userList, 10);
+		User user1 = new User("John 0", 61);
+		User user2 = new User("John 1", 30);
+		User user3 = new User("John 2", 26);
+		User user4 = new User("John 2", 44);
+		User user5 = new User("John 2", 50);
+		User user6 = new User("John 2", 54);
+		User user7 = new User("John 3", 10);
+		User user8 = new User("John 3", 21);
+		User user9 = new User("John 3", 38);
+		User user10 = new User("John 3", 54);
+
+		List<User> userList = new LinkedList<>();
+		userList.add(user6);
+		userList.add(user10);
+		userList.add(user4);
+		userList.add(user5);
+		userList.add(user8);
+		userList.add(user2);
+		userList.add(user3);
+		userList.add(user9);
+		userList.add(user7);
+		userList.add(user1);
+
 		Set<User> userSet = this.sortUser.process(userList);
-		String result = userSet.toString();
-		String expected = "[{John 0; age=61}, {John 1; age=30}, {John 2; age=26}, "
-				+ "{John 2; age=44}, {John 2; age=50}, {John 2; age=54}, {John 3; age=10}, "
-				+ "{John 3; age=21}, {John 3; age=38}, {John 3; age=54}]";
-		assertThat(result, is(expected));
+
+		Set<User> expected = new TreeSet();
+		expected.add(user1);
+		expected.add(user2);
+		expected.add(user3);
+		expected.add(user4);
+		expected.add(user5);
+		expected.add(user6);
+		expected.add(user7);
+		expected.add(user8);
+		expected.add(user9);
+		expected.add(user10);
+
+		assertThat(userSet, is(expected));
 	}
 
 	/**
@@ -39,24 +70,41 @@ public class SortUserTest {
 	 */
 	@Test
 	public void testSortByNameLength() {
+		User user1 = new User("Christian 1", 54);
+		User user2 = new User("Christian 22", 44);
+		User user3 = new User("Christian 22", 38);
+		User user4 = new User("Christian 222", 10);
+		User user5 = new User("Christian 1111", 60);
+		User user6 = new User("Christian 1111", 54);
+		User user7 = new User("Christian 123456", 54);
+		User user8 = new User("Christian 123456", 15);
+		User user9 = new User("Christian 123456", 26);
+
 		List<User> userList = new ArrayList<>();
-		userList.add(new User("Christian 123456", 54));
-		userList.add(new User("Christian 1111", 60));
-		userList.add(new User("Christian 1", 54));
-		userList.add(new User("Christian 1111", 54));
-		userList.add(new User("Christian 123456", 15));
-		userList.add(new User("Christian 22", 44));
-		userList.add(new User("Christian 222", 10));
-		userList.add(new User("Christian 123456", 26));
-		userList.add(new User("Christian 22", 38));
+		userList.add(user7);
+		userList.add(user5);
+		userList.add(user1);
+		userList.add(user6);
+		userList.add(user8);
+		userList.add(user2);
+		userList.add(user4);
+		userList.add(user9);
+		userList.add(user3);
 
 		this.sortUser.sortByNameLength(userList);
-		String result = userList.toString();
-		String expected = "[{Christian 1; age=54}, {Christian 22; age=44}, "
-				+ "{Christian 22; age=38}, {Christian 222; age=10}, {Christian 1111; age=60}, "
-				+ "{Christian 1111; age=54}, {Christian 123456; age=54}, "
-				+ "{Christian 123456; age=15}, {Christian 123456; age=26}]";
-		assertThat(result, is(expected));
+
+		List<User> expected = new ArrayList<>();
+		expected.add(user1);
+		expected.add(user2);
+		expected.add(user3);
+		expected.add(user4);
+		expected.add(user5);
+		expected.add(user6);
+		expected.add(user7);
+		expected.add(user8);
+		expected.add(user9);
+
+		assertThat(userList, is(expected));
 	}
 
 	/**
@@ -64,39 +112,40 @@ public class SortUserTest {
 	 */
 	@Test
 	public void testSortByNameAndAge() {
+		User user1 = new User("Christian 1", 54);
+		User user2 = new User("Christian 1111", 54);
+		User user3 = new User("Christian 1111", 60);
+		User user4 = new User("Christian 123456", 15);
+		User user5 = new User("Christian 123456", 26);
+		User user6 = new User("Christian 123456", 54);
+		User user7 = new User("Christian 22", 38);
+		User user8 = new User("Christian 22", 44);
+		User user9 = new User("Christian 222", 10);
+
 		List<User> userList = new ArrayList<>();
-		userList.add(new User("Christian 123456", 54));
-		userList.add(new User("Christian 1111", 60));
-		userList.add(new User("Christian 1", 54));
-		userList.add(new User("Christian 1111", 54));
-		userList.add(new User("Christian 123456", 15));
-		userList.add(new User("Christian 22", 44));
-		userList.add(new User("Christian 222", 10));
-		userList.add(new User("Christian 123456", 26));
-		userList.add(new User("Christian 22", 38));
+		userList.add(user6);
+		userList.add(user3);
+		userList.add(user1);
+		userList.add(user2);
+		userList.add(user4);
+		userList.add(user8);
+		userList.add(user9);
+		userList.add(user5);
+		userList.add(user7);
 
 		this.sortUser.sortByNameAndAge(userList);
-		String result = userList.toString();
-		String expected = "[{Christian 1; age=54}, {Christian 1111; age=54}, "
-				+ "{Christian 1111; age=60}, {Christian 123456; age=15}, "
-				+ "{Christian 123456; age=26}, {Christian 123456; age=54}, {Christian 22; age=38}, "
-				+ "{Christian 22; age=44}, {Christian 222; age=10}]";
-		assertThat(result, is(expected));
-	}
 
-	/**
-	 * Auxiliary method to fill users' list.
-	 *
-	 * @param list List of users.
-	 * @param amount Amount of list elements.
-	 */
-	private static void fillUserList(List<User> list, int amount) {
-		Random rnd = new Random(69);
-		User user = null;
+		List<User> expected = new ArrayList<>();
+		expected.add(user1);
+		expected.add(user2);
+		expected.add(user3);
+		expected.add(user4);
+		expected.add(user5);
+		expected.add(user6);
+		expected.add(user7);
+		expected.add(user8);
+		expected.add(user9);
 
-		for (int i = 0; i < amount; i++) {
-			user = new User("John " + rnd.nextInt(4), rnd.nextInt(69));
-			list.add(user);
-		}
+		assertThat(userList, is(expected));
 	}
 }
