@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Stub input handling wrong selection of number of menu item.
  */
@@ -23,7 +25,7 @@ public class ValidStubInput extends StubInput {
 	 * @return Answer from user.
 	 */
 	@Override
-	public int ask(String question, int[] range) {
+	public int ask(String question, List<Integer> range) {
 		int answer = -1;
 
 		try {

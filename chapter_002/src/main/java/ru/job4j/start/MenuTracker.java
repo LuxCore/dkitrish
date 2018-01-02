@@ -1,5 +1,9 @@
 package ru.job4j.start;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
@@ -19,14 +23,14 @@ public class MenuTracker {
 	private Input input;
 
 	/**
-	 * Array of available actions to a user.
+	 * List of available actions to a user.
 	 */
-	private UserAction[] actions;
+	private List<UserAction> actions;
 
 	/**
 	 * Range of menu numbers.
 	 */
-	private int[] menuNumRange;
+	private List<Integer> menuNumRange;
 
 	/**
 	 * Constructs MenuTracker with tracker and input type.
@@ -44,7 +48,7 @@ public class MenuTracker {
 	 * Initializing the MenuTracker.
 	 */
 	private void init() {
-		this.menuNumRange = new int[] {1, 2, 3, 4, 5, 6, 7};
+		this.menuNumRange = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
 		this.registerActions();
 	}
 
@@ -241,7 +245,7 @@ public class MenuTracker {
 			System.out.println("----- Поиск всех задач по наименованию -----");
 
 			String taskName = input.ask("Введите наименование задачи, которую необходимо найти/показать: ");
-			Item[] items = tracker.findByName(taskName);
+			List<Item> items = tracker.findByName(taskName);
 
 			System.out.println("Список задач с наименованием " + taskName + ":");
 			showTaskList(items);
@@ -355,16 +359,16 @@ public class MenuTracker {
 	 */
 	private void registerActions() {
 		int numOfAction = 0;
-		this.actions = new UserAction[this.menuNumRange.length];
+		this.actions = new ArrayList<>(this.menuNumRange.size());
 
 		// Arguments in constructors are used as stubs because they don`t carry any meaning.
-		this.actions[numOfAction++] = this.new AddItemAction(numOfAction + 1, "Добавить задачу");
-		this.actions[numOfAction++] = new UpdateItemAction(numOfAction + 1, "Обносить задачу");
-		this.actions[numOfAction++] = new MenuTracker.DeleteItemAction(numOfAction + 1, "Удалить задачу");
-		this.actions[numOfAction++] = this.new FindItemByIdAction(numOfAction + 1, "Поиск задачи по идентификатору");
-		this.actions[numOfAction++] = this.new FindItemsByNameAction(numOfAction + 1, "Поиск задач по имени");
-		this.actions[numOfAction++] = this.new FindAllItemsAction(numOfAction + 1, "Поиск всех задач");
-		this.actions[numOfAction++] = this.new QuitTrackerAction(numOfAction + 1, "Завершить приложение");
+		this.actions.add(this.new AddItemAction(++numOfAction, "Добавить задачу"));
+		this.actions.add(new UpdateItemAction(++numOfAction, "Обносить задачу"));
+		this.actions.add(new MenuTracker.DeleteItemAction(++numOfAction, "Удалить задачу"));
+		this.actions.add(this.new FindItemByIdAction(++numOfAction, "Поиск задачи по идентификатору"));
+		this.actions.add(this.new FindItemsByNameAction(++numOfAction, "Поиск задач по имени"));
+		this.actions.add(this.new FindAllItemsAction(++numOfAction, "Поиск всех задач"));
+		this.actions.add(this.new QuitTrackerAction(++numOfAction, "Завершить приложение"));
 	}
 
 	/**
@@ -386,7 +390,7 @@ public class MenuTracker {
 		// We must predecrement number of menu item because this number
 		// more per one then index of array element containing the corresponding
 		// action.
-		this.actions[--userChoice].execute(this.tracker, this.input);
+		this.actions.get(--userChoice).execute(this.tracker, this.input);
 	}
 
 	/**
@@ -394,7 +398,7 @@ public class MenuTracker {
 	 *
 	 * @param items Items of tracker.
 	 */
-	private void showTaskList(Item[] items) {
+	private void showTaskList(List<Item> items) {
 		byte index = 1;
 		for (Item task : items) {
 			System.out.println(index++ + ": " + task);
@@ -406,7 +410,7 @@ public class MenuTracker {
 	 *
 	 * @return Available menu numbers.
 	 */
-	public int[] getMenuNumRange() {
+	public List<Integer> getMenuNumRange() {
 		return this.menuNumRange;
 	}
 }

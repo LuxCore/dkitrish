@@ -22,7 +22,7 @@ public class TrackerTest {
 		Item task = new Item("task1", "first task");
 		tracker.add(task);
 
-		Item result = tracker.findAll()[0];
+		Item result = tracker.findAll().get(0);
 
 		assertThat(result, is(task));
 	}
@@ -67,7 +67,7 @@ public class TrackerTest {
 		tracker.delete(task1);
 		tracker.delete(task3);
 
-		String result = tracker.findByName("task four")[0].getDesc();
+		String result = tracker.findByName("task four").get(0).getDesc();
 
 		assertThat(result, is("Fourth task :-)"));
 	}

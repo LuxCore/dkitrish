@@ -44,7 +44,7 @@ public class StubInputTest {
 	public void testCreateTask() {
 		this.input = new ValidMenuNumberInput(new StubInput(new String[]{"69", "fgh", "1", "New task", "Desc for new task", "7"}));
 		new StartUI(this.tracker, this.input).init();
-		assertThat(this.tracker.findAll()[20].getName(), is("New task"));
+		assertThat(this.tracker.findAll().get(20).getName(), is("New task"));
 	}
 
 	/**
@@ -52,10 +52,10 @@ public class StubInputTest {
 	 */
 	@Test
 	public void testUpdateTask() {
-		String id = this.tracker.findByName("Task 10")[0].getId();
+		String id = this.tracker.findByName("Task 10").get(0).getId();
 		this.input = new ValidMenuNumberInput(new StubInput(new String[]{"2", "New task", "Desc for new task", id, "69", "7"}));
 		new StartUI(this.tracker, this.input).init();
-		assertThat(this.tracker.findAll()[5].getName(), is("New task"));
+		assertThat(this.tracker.findAll().get(5).getName(), is("New task"));
 	}
 
 	/**
@@ -63,12 +63,12 @@ public class StubInputTest {
 	 */
 	@Test
 	public void testDeleteTask() {
-		String id1 = this.tracker.findByName("Task 14")[0].getId();
-		String id2 = this.tracker.findByName("Task 42")[0].getId();
+		String id1 = this.tracker.findByName("Task 14").get(0).getId();
+		String id2 = this.tracker.findByName("Task 42").get(0).getId();
 		this.input = new ValidMenuNumberInput(new StubInput(new String[]{"3", id1, "qwe", "3", id2, "7"}));
 
 		new StartUI(this.tracker, this.input).init();
-		assertThat(this.tracker.findAll().length, is(18));
+		assertThat(this.tracker.findAll().size(), is(18));
 	}
 
 	/**
@@ -76,11 +76,11 @@ public class StubInputTest {
 	 */
 	@Test
 	public void testFindTaskById() {
-		String id = this.tracker.findByName("Task 38")[0].getId();
+		String id = this.tracker.findByName("Task 38").get(0).getId();
 		this.input = new StubInput(new String[]{"4", id, "7"});
 
 		new StartUI(this.tracker, this.input).init();
-		assertThat(this.tracker.findAll()[3].getName(), is("Task 38"));
+		assertThat(this.tracker.findAll().get(3).getName(), is("Task 38"));
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class StubInputTest {
 		this.input = new StubInput(new String[]{"1", "Task 38", "Desc for new task", "5", "Task 38", "7"});
 
 		new StartUI(this.tracker, this.input).init();
-		assertThat(this.tracker.findByName("Task 38").length, is(2));
+		assertThat(this.tracker.findByName("Task 38").size(), is(2));
 	}
 
 	/**
@@ -103,6 +103,6 @@ public class StubInputTest {
 	public void testFindAllTasks() {
 		this.input = new StubInput(new String[]{"6", "7"});
 		new StartUI(this.tracker, this.input).init();
-		assertThat(this.tracker.findAll().length, is(20));
+		assertThat(this.tracker.findAll().size(), is(20));
 	}
 }

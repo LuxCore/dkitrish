@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -33,17 +34,10 @@ public class ConsoleInput implements Input {
 	 * @return Answer from user.
 	 */
 	@Override
-	public int ask(String question, int[] range) {
+	public int ask(String question, List<Integer> range) {
 		System.out.print(question);
-		int answer = Integer.valueOf(scanner.nextLine());
-		boolean actionNumExists = false;
-
-		for (int num : range) {
-			if (answer == num) {
-				actionNumExists = true;
-				break;
-			}
-		}
+		Integer answer = Integer.valueOf(scanner.nextLine());
+		boolean actionNumExists = range.contains(answer);
 
 		if (!actionNumExists) {
 			throw new MenuItemNumberOutOfRangeException("Введённый номер действия не соответствует ни одному номеру меню.");

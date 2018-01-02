@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Interface of interaction with user.
  */
@@ -21,5 +23,5 @@ public interface Input {
 	 *
 	 * @return Converted user answer from string to int.
 	 */
-	int ask(String question, int[] range);
+	int ask(String question, List<Integer> range);
 }

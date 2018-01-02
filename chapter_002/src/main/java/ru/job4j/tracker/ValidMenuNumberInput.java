@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Checks if user inputs right number of menu item.
  */
@@ -40,11 +42,10 @@ public class ValidMenuNumberInput extends ValidInput {
 	 * @return Answer from user.
 	 */
 	@Override
-	public int ask(String question, int[] range) {
+	public int ask(String question, List<Integer> range) {
 		int answer = -1;
 
 		try {
-			// answer = super.ask(question, range);
 			answer = this.input.ask(question, range);
 		} catch (MenuItemNumberOutOfRangeException e) {
 			answer = ask("Введите, пожалуйста, правильный номер пункта меню: ", range);

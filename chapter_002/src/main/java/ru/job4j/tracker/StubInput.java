@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Stub input for test typed data from user.
  */
@@ -44,18 +46,9 @@ public class StubInput implements Input {
 	 * @return Answer from virtual user.
 	 */
 	@Override
-	public int ask(String question, int[] range) {
-		int answer = -1;
-		boolean actionNumExists = false;
-
-		answer = Integer.valueOf(answers[position++]);
-
-		for (int num : range) {
-			if (answer == num) {
-				actionNumExists = true;
-				break;
-			}
-		}
+	public int ask(String question, List<Integer> range) {
+		Integer answer = Integer.valueOf(this.answers[position++]);
+		boolean actionNumExists = range.contains(answer);
 
 		if (!actionNumExists) {
 			throw new MenuItemNumberOutOfRangeException("Введённый номер действия не соответствует ни одному номеру меню.");
