@@ -1,0 +1,15 @@
+language: java
+# Используем режим обычного пользователя для сборки проекта.
+sudo: false
+
+# После выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo.
+# Здесь используется сторонни сервис https://codecov.io/
+after_success:
+    - bash < (curl -s https://codecov.io/bash)
+
+notifications:
+    email:
+        recipients:
+            - Denis.Kitrish@Yandex.ua
+        on_success: never # default: change
+        on_failure: always # default: always
