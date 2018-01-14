@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/LuxCore/dkitrish.svg?branch=master)](https://travis-ci.org/LuxCore/dkitrish)
+[![codecov](https://codecov.io/gh/LuxCore/dkitrish/branch/master/graph/badge.svg)](https://codecov.io/gh/LuxCore/dkitrish)
+
 **__20.09.2017__**
 # Прохождение курсов «С нуля до трудоустройства, Java SE + EE»
 ## ЦЕЛИ
