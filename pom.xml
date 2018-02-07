@@ -21,9 +21,7 @@
 
 	<modules>
 		<module>level_1</module>
-		<!-- <module>level_2</module> -->
-		<!-- <module>level_3</module> -->
-		<!-- <module>level_4</module> -->
+		<module>level_2</module>
 	</modules>
 
 	<dependencies>
