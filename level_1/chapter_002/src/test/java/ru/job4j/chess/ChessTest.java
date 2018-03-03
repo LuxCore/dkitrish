@@ -1,27 +1,104 @@
 package ru.job4j.chess;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import ru.job4j.chess.core.Board;
-import ru.job4j.chess.core.Cell;
-import ru.job4j.chess.core.Figure;
-import ru.job4j.chess.figure.Bishop;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
- * Here we will test our game.
+ * Проверка шахмат.
+ *
+ * @author Denis.Kitrish
  */
 public class ChessTest {
 	/**
-	 * Here we test how can move the bishop.
+	 * Правило для тестирования исключений.
+	 */
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+
+	/**
+	 * Обычный ход слоном.
+	 * <ol>
+	 * <li>Проверка внутренней переменной-счётчика фигур.
+	 * <li>Проверка количества фигур подсчётом количества элементов в массиве.
+	 * </ol>
 	 */
 	@Test
-	public void test() {
+	public void testBishopMoveAndCountPiecesAfter() {
 		Board board = new Board();
-		Cell c1 = new Cell(3, 1);
-		Figure bishop = new Bishop(c1);
-		board.locate(bishop);
+		Square c1 = new Square(3, 1);
+		Piece bishop = new Bishop(c1);
+		board.add(bishop);
+		Square g5 = new Square(7, 5);
+		board.move(c1, g5);
+		int iResult = board.getCountPieces();
+		int expected = 1;
+		assertThat(iResult, is(expected));
 
-		Cell e3 = new Cell(5, 3);
-		board.move(c1, e3);
+		iResult = 0;
+		Piece[] pieces = board.getPieces();
+		for (int i = 0; i < pieces.length; i++) {
+			if (pieces[i] != null) {
+				++iResult;
+			}
+		}
+		assertThat(iResult, is(expected));
+
+		boolean bResult = iResult == board.getCountPieces();
+		assertThat(bResult, is(true));
 	}
+
+	/**
+	 * Проверка исключительной ситуации, когда слон не найден на клетке.
+	 */
+	@Test
+	public void testBishopMoveWhenPieceNotFound() {
+		Square b2 = new Square(2, 2);
+		thrown.expect(PieceNotFoundException.class);
+		thrown.expectMessage(is("Фигура на клетке [" + b2 + "] не найдена!"));
+		Board board = new Board();
+		Square c3 = new Square(3, 3);
+		Square f6 = new Square(6, 6);
+		Piece bishop = new Bishop(c3);
+		board.add(bishop);
+		board.move(b2, f6);
+	}
+
+	/**
+	 * Проверка исключительной ситуации, когда на пути слона стоит, например, пешка.
+	 */
+	@Test
+	public void testBishopMoveWhenOccupiedWay() {
+		thrown.expect(OccupiedWayException.class);
+		thrown.expectMessage(is("Нет возможности сделать ход, так как путь занят другой фигурой."));
+		Board board = new Board();
+		Square c3 = new Square(3, 3);
+		Square f6 = new Square(6, 6);
+		Piece bishop = new Bishop(c3);
+		Square e5 = new Square(5, 5);
+		Piece pawn = new Pawn(e5);
+		board.add(bishop);
+		board.add(pawn);
+		board.move(c3, f6);
+	}
+
+	/**
+	 * Тест исключительной ситуации, когда клетка назначения находится за границами
+	 * доски.
+	 */
+	@Test
+	public void testBishopImpossibleMoveWhenOutOfBoard() {
+		thrown.expect(ImpossibleMoveException.class);
+		thrown.expectMessage(is("Конечная позиция находится за пределами доски."));
+		Board board = new Board();
+		Square c3 = new Square(3, 3);
+		Square i9 = new Square(9, 9);
+		Piece bishop = new Bishop(c3);
+		board.add(bishop);
+		board.move(c3, i9);
+	}
+
 }

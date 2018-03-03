@@ -1,8 +1,8 @@
 /**
- * Main classes of chess.
+ * Chess game.
  *
  *	@author Denis.Kitrish (Denis.Kitrish@Yandex.ua)
- *	@since 27.11.2017
+ *	@since 04.12.2017
  *	@version 1.0
  */
-package ru.job4j.chess.core;
+package ru.job4j.chess;
