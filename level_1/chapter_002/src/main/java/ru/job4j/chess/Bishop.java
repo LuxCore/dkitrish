@@ -43,31 +43,17 @@ public class Bishop extends Piece {
 		}
 
 		Square[] path = new Square[absDeltaX];
-		if (deltaX > 0 && deltaY > 0) {
-			for (int x = source.getX(), y = source.getY(), i = 0; i < absDeltaX; i++) {
-				path[i] = new Square(++x, ++y);
-			}
-		} else if (deltaX < 0 && deltaY < 0) {
-			for (int x = source.getX(), y = source.getY(), i = 0; i < absDeltaX; i++) {
-				path[i] = new Square(--x, --y);
-			}
-		} else if (deltaX > 0 && deltaY < 0) {
-			for (int x = source.getX(), y = source.getY(), i = 0; i < absDeltaX; i++) {
-				path[i] = new Square(++x, --y);
-			}
-		} else if (deltaX < 0 && deltaY > 0) {
-			for (int x = source.getX(), y = source.getY(), i = 0; i < absDeltaX; i++) {
-				path[i] = new Square(--x, ++y);
-			}
+		int incX = Integer.compare(deltaX, 0);
+		int incY = Integer.compare(deltaY, 0);
+		for (int i = 0, x = source.getX(), y = source.getY(); i < absDeltaX; i++) {
+			x += incX;
+			y += incY;
+			path[i] = new Square(x, y);
 		}
 
 		return path;
 	}
 
-	/**
-	 * @param dest
-	 * @return
-	 */
 	@Override
 	public Piece copy(Square dest) {
 		return new Bishop(dest);
