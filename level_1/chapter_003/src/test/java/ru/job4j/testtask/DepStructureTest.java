@@ -1,153 +1,135 @@
 package ru.job4j.testtask;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
-import static org.junit.Assert.assertThat;
+import java.util.Arrays;
+
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
- * Testing of parse organization structure and sorting it.
+ * Тестирование разбора структуры департаментов с приведением её к правильному
+ * виду. А также сортировка оргструктуры по убыванию и возрастанию.
  */
 public class DepStructureTest {
 	/**
-	 * Here we test method that verify given array of strings (string contains
-	 * sequence of department structure). If the array does not contain
-	 * some sequence of deps then it adds one.
+	 * Тест корректировки организационной структуры.
 	 */
 	@Test
-	public void testCorrectionOrganizationStructure() {
-		DepStructure depStructure = new DepStructure();
-		String[] deps = {
-			"K1\\K2\\K3\\K4",
-			"A11\\A22\\A33",
-			"A1\\A22\\A33",
-			"K1\\K2",
-			"K1\\K22\\K3\\K4",
-			"B111",
-			"B111\\B2\\B33\\B4\\B5"
-		};
-		String[] result = depStructure.correct(deps);
+	public void testCorrectionOfSourceOrgStructure() {
 		String[] expected = {
-			"K1\\K2\\K3\\K4",
-			"A11\\A22\\A33",
-			"A1\\A22\\A33",
-			"K1\\K2",
-			"K1\\K22\\K3\\K4",
-			"B111",
-			"B111\\B2\\B33\\B4\\B5",
-			"A1",
-			"A11",
-			"B111\\B2\\B33",
-			"K1",
-			"K1\\K2\\K3",
-			"K1\\K22\\K3",
-			"A11\\A22",
-			"B111\\B2\\B33\\B4",
-			"A1\\A22",
-			"K1\\K22",
-			"B111\\B2"
+				"A1",
+				"A1\\A2",
+				"A1\\A2\\A4",
+				"A1\\A2\\A33",
+				"A11",
+				"A11\\A22",
+				"A11\\A22\\A33",
+				"MainDivision",
+				"MainDivision\\OxygenShop",
+				"A2",
+				"A2\\A22",
+				"A2\\A22\\A3"
 		};
+		String[] orgStructure = {
+				"A1\\A2\\A4",
+				"A1\\A2\\A33",
+				"A11",
+				"A11\\A22\\A33",
+				"MainDivision\\OxygenShop",
+				"A2\\A22\\A3"
+		};
+		String[] result = DepStructure.correct(orgStructure);
 		assertThat(result, is(expected));
 	}
 
 	/**
-	 * Test when structure is rigth and Set does not filled.
+	 * Проверка сортировки департаментов по убыванию.
 	 */
 	@Test
-	public void testWhenDepStructureIsRight() {
-		DepStructure depStructure = new DepStructure();
-		String[] deps = {
-			"K1",
-			"K1\\K2",
-			"K1\\K2\\K3",
-			"K1\\K2\\K3\\K4",
+	public void testDescendingOrder() {
+		String[] orgStructure;
+		String[] expected;
+		expected = new String[]{
+				"K44",
+				"K4",
+				"K2",
+				"K2\\SK1",
+				"K2\\SK1\\SSK2",
+				"K2\\SK1\\SSK1",
+				"K111",
+				"K111\\SK33",
+				"K111\\SK1",
+				"K11",
+				"K1",
+				"K1\\SK2",
+				"K1\\SK1",
+				"K1\\SK1\\SSK2",
+				"K1\\SK1\\SSK1"
 		};
-		String[] result = depStructure.correct(deps);
-		String[] expected = null;
-		assertThat(result, is(expected));
+		orgStructure = new String[]{
+				"K111\\SK33",
+				"K2\\SK1",
+				"K1",
+				"K2\\SK1\\SSK2",
+				"K111",
+				"K1\\SK2",
+				"K1\\SK1\\SSK1",
+				"K2",
+				"K4",
+				"K2\\SK1\\SSK1",
+				"K44",
+				"K1\\SK1",
+				"K111\\SK1",
+				"K1\\SK1\\SSK2",
+				"K11"
+		};
+		Arrays.sort(orgStructure, DepStructure.DESCENDING_ORDER);
+		assertThat(orgStructure, is(expected));
 	}
 
 	/**
-	 * Here we test our comparator that sorts given array of department
-	 * sequences in descending order.
+	 * Проверка сортировки департаментов по возрастанию.
 	 */
 	@Test
-	public void testDescendingOrderOfOrganizationStructure() {
-		DepStructure depStructure = new DepStructure();
-		String[] deps = {
-			"K1\\K2\\K3\\K4",
-			"A11\\A22\\A33",
-			"A1\\A22\\A33",
-			"K1\\K2",
-			"K1\\K22\\K3\\K4",
-			"B111",
-			"B111\\B2\\B33\\B4\\B5"
+	public void testAscendingOrder() {
+		String[] orgStructure;
+		String[] expected;
+		expected = new String[]{
+				"K1",
+				"K1\\SK1",
+				"K1\\SK1\\SSK1",
+				"K1\\SK1\\SSK2",
+				"K1\\SK2",
+				"K11",
+				"K111",
+				"K111\\SK1",
+				"K111\\SK33",
+				"K2",
+				"K2\\SK1",
+				"K2\\SK1\\SSK1",
+				"K2\\SK1\\SSK2",
+				"K4",
+				"K44"
 		};
-		String[] result = depStructure.correct(deps);
-		Arrays.sort(result, DepStructure.DESCENDING_ORDER);
-		String[] expected = {
-			"K1",
-			"K1\\K2",
-			"K1\\K2\\K3",
-			"K1\\K2\\K3\\K4",
-			"K1\\K22",
-			"K1\\K22\\K3",
-			"K1\\K22\\K3\\K4",
-			"B111",
-			"B111\\B2",
-			"B111\\B2\\B33",
-			"B111\\B2\\B33\\B4",
-			"B111\\B2\\B33\\B4\\B5",
-			"A11",
-			"A11\\A22",
-			"A11\\A22\\A33",
-			"A1",
-			"A1\\A22",
-			"A1\\A22\\A33"
+		orgStructure = new String[]{
+				"K111\\SK33",
+				"K2\\SK1",
+				"K1",
+				"K2\\SK1\\SSK2",
+				"K111",
+				"K1\\SK2",
+				"K1\\SK1\\SSK1",
+				"K2",
+				"K4",
+				"K2\\SK1\\SSK1",
+				"K44",
+				"K1\\SK1",
+				"K111\\SK1",
+				"K1\\SK1\\SSK2",
+				"K11"
 		};
-		assertThat(result, is(expected));
-	}
-
-	/**
-	 * Here we test our comparator that sorts given array of department
-	 * sequences in ascending order.
-	 */
-	@Test
-	public void testAscendingOrderOfOrganizationStructure() {
-		DepStructure depStructure = new DepStructure();
-		String[] deps = {
-			"K1\\K2\\K3\\K4",
-			"A11\\A22\\A33",
-			"A1\\A22\\A33",
-			"K1\\K2",
-			"K1\\K22\\K3\\K4",
-			"B111",
-			"B111\\B2\\B33\\B4\\B5"
-		};
-		String[] result = depStructure.correct(deps);
-		Arrays.sort(result, DepStructure.ASCENDING_ORDER);
-		String[] expected = {
-			"A1",
-			"A1\\A22",
-			"A1\\A22\\A33",
-			"A11",
-			"A11\\A22",
-			"A11\\A22\\A33",
-			"B111",
-			"B111\\B2",
-			"B111\\B2\\B33",
-			"B111\\B2\\B33\\B4",
-			"B111\\B2\\B33\\B4\\B5",
-			"K1",
-			"K1\\K2",
-			"K1\\K2\\K3",
-			"K1\\K2\\K3\\K4",
-			"K1\\K22",
-			"K1\\K22\\K3",
-			"K1\\K22\\K3\\K4"
-		};
-		assertThat(result, is(expected));
+		Arrays.sort(orgStructure, DepStructure.ASCENDING_ORDER);
+		assertThat(orgStructure, is(expected));
 	}
 }
