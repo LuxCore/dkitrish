@@ -33,22 +33,8 @@ public class ChessTest {
 		Piece bishop = new Bishop(c1);
 		board.add(bishop);
 		Square g5 = new Square(7, 5);
-		board.move(c1, g5);
-		int iResult = board.getCountPieces();
-		int expected = 1;
-		assertThat(iResult, is(expected));
-
-		iResult = 0;
-		Piece[] pieces = board.getPieces();
-		for (int i = 0; i < pieces.length; i++) {
-			if (pieces[i] != null) {
-				++iResult;
-			}
-		}
-		assertThat(iResult, is(expected));
-
-		boolean bResult = iResult == board.getCountPieces();
-		assertThat(bResult, is(true));
+		boolean result = board.move(c1, g5);
+		assertThat(result, is(true));
 	}
 
 	/**
