@@ -77,22 +77,4 @@ public class Board {
 			}
 		}
 	}
-
-	/**
-	 * Получение массива имеющихся фигур на доске.
-	 *
-	 * @return Массив имеющихся фигур на доске.
-	 */
-	public Piece[] getPieces() {
-		return pieces;
-	}
-
-	/**
-	 * Возвращает количество фигур на доске.
-	 *
-	 * @return Количество фигур на доске.
-	 */
-	public int getCountPieces() {
-		return countPieces;
-	}
 }

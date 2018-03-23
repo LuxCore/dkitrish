@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
@@ -17,6 +18,7 @@ public class CollectionsTest {
 	/**
 	 * Testing performance of collection when elements are added.
 	 */
+	@Ignore
 	@Test
 	public void testAddAndDelWCollection() {
 		Collections collections = new Collections();

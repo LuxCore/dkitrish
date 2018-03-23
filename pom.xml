@@ -20,8 +20,8 @@
 	</properties>
 
 	<modules>
-		<module>level_1</module>
-		<module>level_2</module>
+		<module>1.Trainee</module>
+		<module>2.Junior</module>
 	</modules>
 
 	<dependencies>
