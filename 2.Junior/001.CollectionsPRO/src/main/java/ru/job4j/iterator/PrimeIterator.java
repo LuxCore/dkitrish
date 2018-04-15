@@ -37,10 +37,9 @@ public class PrimeIterator implements Iterator<Integer> {
 		int result;
 		if (indexOfPrime == -1) {
 			throw new NoSuchElementException("Простое число не найдено.");
-		} else {
-			result = this.numbers[indexOfPrime];
-			this.position = ++indexOfPrime;
 		}
+		result = this.numbers[indexOfPrime];
+		this.position = ++indexOfPrime;
 		return result;
 	}
 
