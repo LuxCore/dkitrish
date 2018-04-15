@@ -8,7 +8,7 @@ import java.util.List;
 */
 public class ConvertList {
 	/**
-	 * Converts List<int[]> into List<Integer>.
+	 * Converts List&lt;int[]&gt; into List&lt;Integer&gt;.
 	 *
 	 * @param listOfArrays
 	 *            List of integer arrays that must be converted to List of

@@ -5,7 +5,7 @@ package ru.job4j.banking.menu.action;
  */
 public interface BaseAction {
 	/**
-	 * Executes an appropriate method of {@link Bank} class.
+	 * Executes an appropriate method of Bank class.
 	 */
 	void execute();
 }

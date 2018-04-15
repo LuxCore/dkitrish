@@ -58,9 +58,9 @@ public class Triangle {
 	 *	Formula:
 	 *	<code>P = ab + ac + bc</code>
 	 *
-	 *	@param ab Distance between points a & b.
-	 *	@param ac Distance between points a & c.
-	 *	@param bc Distance between points b & c.
+	 *	@param ab Distance between points a &amp; b.
+	 *	@param ac Distance between points a &amp; c.
+	 *	@param bc Distance between points b &amp; c.
 	 *
 	 *	@return Perimeter.
 	 */

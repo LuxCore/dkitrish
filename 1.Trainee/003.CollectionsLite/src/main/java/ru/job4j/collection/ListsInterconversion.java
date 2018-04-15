@@ -10,9 +10,9 @@ import java.util.Random;
  */
 public class ListsInterconversion {
 	/**
-	 * Converts twodimensional array into List<Integer>.
+	 * Converts two dimensional array into List&lt;Integer&gt;.
 	 *
-	 * @param array Twodimensional array of integers.
+	 * @param array Two dimensional array of integers.
 	 *
 	 * @return Converted array into List.
 	 */
@@ -29,7 +29,7 @@ public class ListsInterconversion {
 	}
 
 	/**
-	 * Converts List<Integer> array into twodimensional.
+	 * Converts List&lt;Integer&gt; array into two dimensional.
 	 *
 	 * @param list List of integers.
 	 *

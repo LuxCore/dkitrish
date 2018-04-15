@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * =============================================================================
  * Implementation of iterable for processing of two dimensional array that has
  * primitive type {@code int}.
- * Arrays of second dimension can be of different size. Whole array can be
+ * Arrays of second dimension can be of different elementsCount. Whole array can be
  * uniform and jagged.
  *
  * @author Denis.Kitrish

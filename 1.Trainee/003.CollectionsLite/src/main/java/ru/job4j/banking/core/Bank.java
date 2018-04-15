@@ -35,12 +35,12 @@ public class Bank {
 	/**
 	 * Adds a new user to bank system.
 	 * <p>If no argument user in map then he will be added. For approval
-	 * we use {@link Map#containsKey()} and return opposite result.
+	 * we use Map#containsKey() and return opposite result.
 	 * <p>It adds only user and he has no accounts.
 	 *
 	 * @param user user of bank.
 	 *
-	 * @return Returns true if user was added succesfully to bank system
+	 * @return Returns true if user was added successfully to bank system
 	 *         otherwise false.
 	 */
 	public boolean addUser(User user) {
@@ -52,13 +52,13 @@ public class Bank {
 	/**
 	 * Deletes a user from bank system with all his accounts.
 	 * <p>If user is in map then it will removed from it, therefore we can
-	 * return result using {@link Map#containsKey()}. If method throws exception
+	 * return result using Map#containsKey(). If method throws exception
 	 * it will be in line contains <tt>remove</tt> method.
 	 * <p>It is sad. Bye bye!
 	 *
 	 * @param user user of bank.
 	 *
-	 * @return Returns true if user was deleted succesfully from bank system
+	 * @return Returns true if user was deleted successfully from bank system
 	 *         otherwise false.
 	 */
 	public List<Account> deleteUser(User user) {
