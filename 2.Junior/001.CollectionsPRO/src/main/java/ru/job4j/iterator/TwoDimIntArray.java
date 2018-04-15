@@ -24,7 +24,7 @@ public class TwoDimIntArray implements Iterable<Integer> {
 	 * 2D int array. User needs to know info about its next element and to
 	 * return next element.
 	 */
-	private int[][] intArray;
+	private int[][] values;
 
 	/**
 	 * Пустой конструктор. Оставляем возможность создавать без массива.
@@ -38,13 +38,13 @@ public class TwoDimIntArray implements Iterable<Integer> {
 	 * =========================================================================
 	 * Constructor accepts two dimensional array of {@code int} type.
 	 *
-	 * @param intArray
+	 * @param values
 	 *         Двумерный массив типа {@code int}.
 	 *         =================================================================
 	 *         Two dimensional array of {@code int} type.
 	 */
-	public TwoDimIntArray(int[][] intArray) {
-		this.intArray = intArray;
+	public TwoDimIntArray(int[][] values) {
+		this.values = values;
 	}
 
 	/**
@@ -56,14 +56,14 @@ public class TwoDimIntArray implements Iterable<Integer> {
 		 * =========================================================================
 		 * Next index of first dimension's element.
 		 */
-		private int nextE1lvl;
+		private int nextElement1Dim;
 
 		/**
 		* Индекс следующего элемента второго измерения.
 		* ==========================================================================
 		* Next index of second dimension's element.
 		*/
-		private int nextE2lvl;
+		private int nextElement2Dim;
 
 		/**
 		 * Возвращает положительный результат, если в массиве имеется следующий
@@ -79,8 +79,8 @@ public class TwoDimIntArray implements Iterable<Integer> {
 		 */
 		@Override
 		public boolean hasNext() {
-			return TwoDimIntArray.this.intArray.length > 0
-					&& nextE1lvl < TwoDimIntArray.this.intArray.length;
+			return TwoDimIntArray.this.values.length > 0
+					&& nextElement1Dim < TwoDimIntArray.this.values.length;
 		}
 
 		/**
@@ -94,11 +94,11 @@ public class TwoDimIntArray implements Iterable<Integer> {
 				throw new NoSuchElementException();
 			}
 
-			Integer result = TwoDimIntArray.this.intArray[nextE1lvl][nextE2lvl];
+			Integer result = TwoDimIntArray.this.values[nextElement1Dim][nextElement2Dim];
 
-			if (++nextE2lvl == TwoDimIntArray.this.intArray[nextE1lvl].length) {
-				nextE1lvl++;
-				nextE2lvl = 0;
+			if (++nextElement2Dim == TwoDimIntArray.this.values[nextElement1Dim].length) {
+				nextElement1Dim++;
+				nextElement2Dim = 0;
 			}
 
 			return result;
@@ -110,13 +110,13 @@ public class TwoDimIntArray implements Iterable<Integer> {
 	 * =========================================================================
 	 * Sets new array for iteration of his elements.
 	 *
-	 * @param intArray
+	 * @param values
 	 *         Двумерный массив типа {@code int}.
 	 *         =================================================================
 	 *         Two dimensional array of {@code int} type.
 	 */
-	public void setArray(int[][] intArray) {
-		this.intArray = intArray;
+	public void setArray(int[][] values) {
+		this.values = values;
 	}
 
 	/**
