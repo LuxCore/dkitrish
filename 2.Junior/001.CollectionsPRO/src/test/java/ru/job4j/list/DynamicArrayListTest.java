@@ -14,6 +14,15 @@ import static org.junit.Assert.assertThat;
  */
 public class DynamicArrayListTest {
 	/**
+	 * Проверка исключения в случае, когда в конструктор передаётся отрицательная
+	 * длина массива.
+	 */
+	@Test(expected = NegativeArraySizeException.class)
+	public void testNegativeArraySizeConstructor() {
+		new DynamicArrayList<Integer>(-10);
+	}
+
+	/**
 	 * Тест добавления элементов с автоматическим расширением по достижении
 	 * предела размера контейнера объектов.
 	 */

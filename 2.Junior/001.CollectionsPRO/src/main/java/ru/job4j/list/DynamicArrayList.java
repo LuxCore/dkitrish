@@ -43,8 +43,13 @@ public class DynamicArrayList<E> implements Iterable<E> {
 	 * Конструктор, задающий начальную длину контейнера.
 	 *
 	 * @param length Длина контейнера.
+	 * @throws NegativeArraySizeException Если аргумент длины массива
+	 *                                    передаётся отрицательным числом.
 	 */
-	public DynamicArrayList(int length) {
+	public DynamicArrayList(int length) throws NegativeArraySizeException {
+		if (length < 0) {
+			throw new NegativeArraySizeException();
+		}
 		this.container = new Object[length];
 	}
 
