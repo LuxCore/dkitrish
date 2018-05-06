@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -135,5 +136,63 @@ public class SimpleLinkedListTest {
 	public void testEmptyListToString() {
 		SimpleLinkedList<Integer> sll = new SimpleLinkedList<>();
 		assertThat(sll.toString(), is("[]"));
+	}
+
+	/**
+	 * Тест удаления первого элемента списка.
+	 */
+	@Test
+	public void testRemoveFirstElement() {
+		SimpleLinkedList<Integer> sll = new SimpleLinkedList<>();
+		for (Integer i = 1; i <= 5; i++) {
+			sll.add(i);
+		}
+		assertThat(sll.removeFirst(), is(1));
+		assertThat(sll.removeFirst(), is(2));
+		assertThat(sll.removeFirst(), is(3));
+		assertThat(sll.removeFirst(), is(4));
+		assertThat(sll.removeFirst(), is(5));
+		assertNull(sll.removeFirst());
+	}
+
+	/**
+	 * Тест удаления последнего элемента списка.
+	 */
+	@Test
+	public void testRemoveLastElement() {
+		SimpleLinkedList<Integer> sll = new SimpleLinkedList<>();
+		for (Integer i = 1; i <= 5; i++) {
+			sll.add(i);
+		}
+		assertThat(sll.removeLast(), is(5));
+		assertThat(sll.removeLast(), is(4));
+		assertThat(sll.removeLast(), is(3));
+		assertThat(sll.removeLast(), is(2));
+		assertThat(sll.removeLast(), is(1));
+		assertNull(sll.removeLast());
+	}
+
+	/**
+	 * Тест добавления и удаления элементов списка.
+	 */
+	@Test
+	public void testAddAndRemoveFirstAndLastElement() {
+		SimpleLinkedList<Integer> sll = new SimpleLinkedList<>();
+		for (Integer i = 1; i <= 5; i++) {
+			sll.add(i);
+		}
+		assertThat(sll.removeLast(), is(5));
+		sll.add(69);
+		sll.add(69);
+		assertThat(sll.removeLast(), is(69));
+		assertThat(sll.removeFirst(), is(1));
+		sll.add(96);
+		assertThat(sll.removeLast(), is(96));
+		assertThat(sll.removeLast(), is(69));
+		assertThat(sll.removeFirst(), is(2));
+		assertThat(sll.removeLast(), is(4));
+		assertThat(sll.removeFirst(), is(3));
+		assertNull(sll.removeFirst());
+		assertNull(sll.removeLast());
 	}
 }

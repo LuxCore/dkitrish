@@ -167,4 +167,56 @@ public class SimpleLinkedList<T> implements Iterable<T> {
 			return result;
 		}
 	}
+
+	/**
+	 * Удаление первого узла списка.
+	 *
+	 * @return Значение удаляемого узла.
+	 */
+	public T removeFirst() {
+		T result = null;
+		if (size > 2) {
+			result = first.value;
+			first = first.next;
+			first.prev = null;
+			size--;
+		} else if (size == 2) {
+			result = first.value;
+			first = first.next;
+			last = first;
+			size--;
+		} else if (size == 1) {
+			result = first.value;
+			first = null;
+			last = null;
+			size--;
+		}
+		return result;
+	}
+
+	/**
+	 * Удаление последнего узла списка.
+	 *
+	 * @return Значение удаляемого узла.
+	 */
+	public T removeLast() {
+		T result = null;
+		if (size > 2) {
+			result = last.value;
+			last = last.prev;
+			last.next = null;
+			size--;
+		} else if (size == 2) {
+			result = last.value;
+			last = last.prev;
+			first = last;
+			size--;
+		} else if (size == 1) {
+			result = last.value;
+			first = null;
+			last = null;
+			size--;
+		}
+		return result;
+	}
 }
