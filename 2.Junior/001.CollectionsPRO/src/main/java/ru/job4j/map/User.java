@@ -1,6 +1,7 @@
 package ru.job4j.map;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 /**
  * Сущность пользователя.
@@ -20,6 +21,11 @@ public class User {
 	 * День рождения пользователя.
 	 */
 	private Calendar birthday;
+
+	/**
+	 * Поле, которое не учитывается в методах equals() и hashCode().
+	 */
+	private int nonBusinessField;
 
 	/**
 	 * Пустой конструктор.
@@ -92,5 +98,43 @@ public class User {
 	 */
 	public void setBirthday(Calendar birthday) {
 		this.birthday = birthday;
+	}
+
+	public void setNonBusinessField(int nonBusinessField) {
+		this.nonBusinessField = nonBusinessField;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		User user = (User) o;
+		return children == user.children &&
+				Objects.equals(name, user.name) &&
+				Objects.equals(birthday, user.birthday);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + name.hashCode();
+		result = prime * result + children;
+		result = prime * result + birthday.hashCode();
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"name='" + name + '\'' +
+				", children=" + children +
+				", birthday=" + birthday.getTime() +
+				", nonBusinessField=" + nonBusinessField +
+				'}';
 	}
 }
