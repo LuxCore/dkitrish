@@ -100,6 +100,11 @@ public class User {
 		this.birthday = birthday;
 	}
 
+	/**
+	 * Незначимое поле для проверки перезаписи новым объектом старого.
+	 *
+	 * @param nonBusinessField Незначимое поле.
+	 */
 	public void setNonBusinessField(int nonBusinessField) {
 		this.nonBusinessField = nonBusinessField;
 	}
@@ -113,9 +118,9 @@ public class User {
 			return false;
 		}
 		User user = (User) o;
-		return children == user.children &&
-				Objects.equals(name, user.name) &&
-				Objects.equals(birthday, user.birthday);
+		return children == user.children
+				&& Objects.equals(name, user.name)
+				&& Objects.equals(birthday, user.birthday);
 	}
 
 	@Override
@@ -130,11 +135,11 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User{" +
-				"name='" + name + '\'' +
-				", children=" + children +
-				", birthday=" + birthday.getTime() +
-				", nonBusinessField=" + nonBusinessField +
-				'}';
+		return "User{"
+				+ "name='" + name + '\''
+				+ ", children=" + children
+				+ ", birthday=" + birthday.getTime()
+				+ ", nonBusinessField=" + nonBusinessField
+				+ '}';
 	}
 }

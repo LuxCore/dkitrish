@@ -38,7 +38,7 @@ public class UserTest {
 		System.out.println(users);
 		users.put(user2, new Object());
 		System.out.println(users);
-		Assert.assertThat(users.size(), Is.is(2));
+		Assert.assertThat(users.size(), Is.is(1));
 		for (User user : users.keySet()) {
 			System.out.println(user.hashCode());
 		}
