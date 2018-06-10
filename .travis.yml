@@ -13,3 +13,6 @@ notifications:
             - Denis.Kitrish@Yandex.ua
         on_success: never # default: change
         on_failure: always # default: always
+
+jdk:
+    - oraclejdk8
