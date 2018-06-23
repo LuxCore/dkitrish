@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * Сущность пользователя.
  */
-public class User {
+public class User implements Comparable<User> {
 	/**
 	 * Имя пользователя.
 	 */
@@ -141,5 +141,22 @@ public class User {
 				+ ", birthday=" + birthday.getTime()
 				+ ", nonBusinessField=" + nonBusinessField
 				+ '}';
+	}
+
+	@Override
+	public int compareTo(User o) {
+		int result = name.compareTo(o.name);
+		if (result != 0) {
+			return result;
+		}
+		result = Integer.compare(children, o.children);
+		if (result != 0) {
+			return result;
+		}
+		result = birthday.compareTo(o.birthday);
+		if (result != 0) {
+			return result;
+		}
+		return result;
 	}
 }
