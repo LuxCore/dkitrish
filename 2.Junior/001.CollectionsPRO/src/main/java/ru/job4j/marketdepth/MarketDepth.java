@@ -147,10 +147,10 @@ public class MarketDepth {
 		if (oppositeBeneficialOrders != null && !oppositeBeneficialOrders.isEmpty()) {
 			for (Iterator<Map.Entry<OrderProxy, Queue<Order>>> eItr =
 				 oppositeBeneficialOrders.entrySet().iterator();
-				 eItr.hasNext() && order.getVolume() != 0; ) {
+				 eItr.hasNext() && order.getVolume() != 0;) {
 				Map.Entry<OrderProxy, Queue<Order>> nextEntry = eItr.next();
 				for (Iterator<Order> oItr = nextEntry.getValue().iterator();
-					 oItr.hasNext() && order.getVolume() != 0; ) {
+					 oItr.hasNext() && order.getVolume() != 0;) {
 					Order o = oItr.next();
 					if (order.getTrader().equals(o.getTrader())) {
 						continue;
@@ -223,7 +223,7 @@ public class MarketDepth {
 			LinkedList<Order> traderOrders = (LinkedList<Order>) entry.getValue();
 			OrderProxy entryProxy = entry.getKey();
 			for (ListIterator<Order> itr = traderOrders.listIterator(traderOrders.size());
-				 itr.hasPrevious() && volume > 0; ) {
+				 itr.hasPrevious() && volume > 0;) {
 				Order o = itr.previous();
 				if (!o.getTrader().equals(trader)) {
 					continue;
