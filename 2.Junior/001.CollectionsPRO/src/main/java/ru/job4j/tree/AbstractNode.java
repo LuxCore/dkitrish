@@ -71,8 +71,7 @@ public abstract class AbstractNode<V extends Comparable<V>> implements Node<V> {
 	}
 
 	/**
-	 * Получение всех дочерних узлов, которые не являются родительскими
-	 * ни для каких других узлов.
+	 * Получение всех дочерних узлов.
 	 *
 	 * @return Все дочерние узлы.
 	 */

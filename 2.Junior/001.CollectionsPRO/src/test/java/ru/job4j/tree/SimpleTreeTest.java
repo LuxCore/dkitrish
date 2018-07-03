@@ -20,7 +20,6 @@ public class SimpleTreeTest extends AbstractTreeTest {
 		return new MultiNode<>(value);
 	}
 
-
 	/**
 	 * Тестирование проверки простого дерева на бинарность,
 	 * т.е. содержит ли каждый узел дерева не больше двух узлов.
