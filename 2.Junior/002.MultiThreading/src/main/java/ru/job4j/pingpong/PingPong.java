@@ -27,6 +27,7 @@ public class PingPong extends Application {
 		primaryStage.setScene(new Scene(root, initWidth, initHeight));
 		primaryStage.setTitle("Ping-pong");
 		primaryStage.setResizable(false);
+		primaryStage.setOnCloseRequest(event -> t.interrupt());
 		primaryStage.show();
 	}
 
