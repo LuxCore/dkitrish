@@ -18,5 +18,6 @@
 
 	<modules>
 		<module>001.CollectionsPRO</module>
+		<module>002.MultiThreading</module>
 	</modules>
 </project>
