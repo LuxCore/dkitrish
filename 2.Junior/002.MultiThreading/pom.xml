@@ -11,4 +11,11 @@
 
 	<artifactId>002.MultiThreading</artifactId>
 	<version>1.0</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.jcip</groupId>
+			<artifactId>jcip-annotations</artifactId>
+		</dependency>
+	</dependencies>
 </project>
