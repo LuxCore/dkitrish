@@ -1,5 +1,8 @@
 package ru.job4j.list;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -10,6 +13,7 @@ import java.util.NoSuchElementException;
  *
  * @param <E> Тип элементов динамического массива.
  */
+@ThreadSafe
 public class DynamicArrayList<E> implements Iterable<E> {
 	/**
 	 * Начальное значение размера массива container.
@@ -19,6 +23,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
 	/**
 	 * Контейнер объектов.
 	 */
+	@GuardedBy("this")
 	private Object[] container;
 
 	/**
@@ -58,7 +63,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
 	 *
 	 * @param value Добавляемый объект.
 	 */
-	public void add(E value) {
+	public synchronized void add(E value) {
 		ensureCapacity();
 		this.container[this.cursor++] = value;
 		this.modificationCount++;
@@ -71,7 +76,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
 	 * @return Искомый по индексу объект.
 	 */
 	@SuppressWarnings("unchecked")
-	public E get(int index) {
+	public synchronized E get(int index) {
 		return (E) this.container[index];
 	}
 
@@ -80,7 +85,7 @@ public class DynamicArrayList<E> implements Iterable<E> {
 	 *
 	 * @return Количество элементов в контейнере.
 	 */
-	public int elementsCount() {
+	public synchronized int elementsCount() {
 		return this.cursor;
 	}
 
@@ -89,14 +94,14 @@ public class DynamicArrayList<E> implements Iterable<E> {
 	 *
 	 * @return Размер контейнера.
 	 */
-	public int size() {
+	public synchronized int size() {
 		return this.container.length;
 	}
 
 	/**
 	 * Убеждаемся в том, что в массив можно добавлять элементы.
 	 */
-	private void ensureCapacity() {
+	private synchronized void ensureCapacity() {
 		if (this.cursor == this.container.length) {
 			int newLength = this.container.length * 3 / 2 + 1;
 			this.container = Arrays.copyOf(this.container, newLength);
