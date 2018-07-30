@@ -1,0 +1,1 @@
+SELECT field_5 FROM table_5;
