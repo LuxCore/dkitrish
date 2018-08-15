@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
  *
  * @param <T> Тип элементов, содержащихся в связном списке.
  */
-@ThreadSafe
 public class SimpleLinkedList<T> implements Iterable<T> {
 	/**
 	 * Содержит количество изменений в списке.
@@ -27,13 +26,11 @@ public class SimpleLinkedList<T> implements Iterable<T> {
 	/**
 	 * Ссылка на первый элемент списка.
 	 */
-	@GuardedBy("this")
 	private Node<T> first;
 
 	/**
 	 * Ссылка на последний элемент списка.
 	 */
-	@GuardedBy("this")
 	private Node<T> last;
 
 	/**
@@ -41,7 +38,7 @@ public class SimpleLinkedList<T> implements Iterable<T> {
 	 *
 	 * @param value Новый объект, добавляемый в список.
 	 */
-	public synchronized void add(T value) {
+	public void add(T value) {
 		Node<T> node = new Node<>(value);
 
 		if (size > 0) {
@@ -61,7 +58,7 @@ public class SimpleLinkedList<T> implements Iterable<T> {
 	 * @param index Индекс искомого элемента.
 	 * @return Необходимый элемент списка.
 	 */
-	public synchronized T get(int index) {
+	public T get(int index) {
 		if (index < 0 || index >= this.size) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -179,7 +176,7 @@ public class SimpleLinkedList<T> implements Iterable<T> {
 	 *
 	 * @return Значение удаляемого узла.
 	 */
-	public synchronized T removeFirst() {
+	public T removeFirst() {
 		T result = null;
 		if (size > 2) {
 			result = first.value;
@@ -205,7 +202,7 @@ public class SimpleLinkedList<T> implements Iterable<T> {
 	 *
 	 * @return Значение удаляемого узла.
 	 */
-	public synchronized T removeLast() {
+	public T removeLast() {
 		T result = null;
 		if (size > 2) {
 			result = last.value;
