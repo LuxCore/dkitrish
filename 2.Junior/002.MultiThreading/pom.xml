@@ -14,6 +14,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>ru.job4j</groupId>
+			<artifactId>001.CollectionsPRO</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>net.jcip</groupId>
 			<artifactId>jcip-annotations</artifactId>
 		</dependency>
