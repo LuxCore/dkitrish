@@ -3,8 +3,8 @@ package ru.job4j.monitorsync;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Хранилище пользователей.
@@ -15,7 +15,7 @@ public class UserStorage {
 	 * Множество пользователей.
 	 */
 	@GuardedBy("this")
-	private Set<User> storage = new HashSet<>();
+	private Map<Integer, User> storage = new HashMap<>();
 
 	/**
 	 * Добавление пользователя в хранилище.
@@ -25,7 +25,7 @@ public class UserStorage {
 	 * иначе - false.
 	 */
 	public synchronized boolean add(User user) {
-		return storage.add(user);
+		return storage.putIfAbsent(user.getId(), user) != null;
 	}
 
 	/**
@@ -36,30 +36,11 @@ public class UserStorage {
 	 * иначе - false.
 	 */
 	public synchronized boolean update(User user) {
-		boolean result = false;
-		User u = findUser(user);
-		if (u != null) {
-			u.setAmount(user.getAmount());
-			result = true;
-		}
-		return result;
-	}
-
-	/**
-	 * Поиск пользователя.
-	 *
-	 * @param user Пользователь.
-	 * @return пользователя.
-	 */
-	private synchronized User findUser(User user) {
-		User result = null;
-		for (User u : storage) {
-			if (u.equals(user)) {
-				result = u;
-				break;
-			}
-		}
-		return result;
+		return this.storage.computeIfPresent(user.getId(),
+				(k, v) -> {
+					v.setAmount(user.getAmount());
+					return v;
+				}) != null;
 	}
 
 	/**
@@ -70,7 +51,7 @@ public class UserStorage {
 	 * иначе - false.
 	 */
 	public synchronized boolean delete(User user) {
-		return storage.remove(user);
+		return this.storage.remove(user.getId()) != null;
 	}
 
 	/**
@@ -83,20 +64,26 @@ public class UserStorage {
 	 * @param amount     Переводимая денежная сумма.
 	 * @return true, если операция пеервода прошла успешно, иначе - false.
 	 */
-	public boolean transfer(int userIdFrom, int userIdTo, int amount) {
+	public synchronized boolean transfer(int userIdFrom, int userIdTo, int amount) {
 		boolean result = false;
-		User uFrom = findUser(new User(userIdFrom, 0));
-		User uTo = findUser(new User(userIdTo, 0));
-		if (uFrom != null && uTo != null && uFrom.getAmount() >= amount) {
-			uTo.setAmount(uTo.getAmount() + amount);
-			uFrom.setAmount(uFrom.getAmount() - amount);
+		User sender = this.storage.get(userIdFrom);
+		User recipient = this.storage.get(userIdTo);
+		if (sender != null && recipient != null
+				&& sender.getAmount() >= amount) {
+			recipient.setAmount(recipient.getAmount() + amount);
+			sender.setAmount(sender.getAmount() - amount);
 			result = true;
 		}
 		return result;
 	}
 
-	@Override
-	public synchronized String toString() {
-		return "UserStorage" + storage;
+	/**
+	 * Получение хранилища пользователей.
+	 *
+	 * @param id Идентификатор пользователя.
+	 * @return Пользователя по идентифкатору.
+	 */
+	public synchronized User getUserById(int id) {
+		return this.storage.get(id);
 	}
 }
