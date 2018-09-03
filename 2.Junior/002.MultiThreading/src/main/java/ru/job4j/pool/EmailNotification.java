@@ -1,6 +1,8 @@
 package ru.job4j.pool;
 
 import java.text.MessageFormat;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Уведомление на электропочту.
@@ -15,6 +17,13 @@ public class EmailNotification {
 	 * Содержимое письма.
 	 */
 	private String body;
+
+	/**
+	 * Пул потоков.
+	 */
+	private ExecutorService pool = Executors.newFixedThreadPool(
+			Runtime.getRuntime().availableProcessors());
+
 	/**
 	 * Создание/подготовка к отправлению уведомительного письма
 	 * подписчику на почту.
@@ -28,6 +37,33 @@ public class EmailNotification {
 		this.body = MessageFormat.format(
 				"Add a new event to {0}.",
 				user.getUserName());
+		this.pool.submit(() -> send(EmailNotification.this.subject,
+				EmailNotification.this.body, "email"));
+	}
+
+	/**
+	 * Метод отсылки сообщения.
+	 *
+	 * @param subject Тема письма.
+	 * @param body    Тело письма.
+	 * @param email   Письмо.
+	 */
+	public void send(String subject, String body, String email) {
+
+	}
+
+	/**
+	 * Закрытие пула потоков.
+	 */
+	public void close() {
+		this.pool.shutdown();
+		while (!this.pool.isTerminated()) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -36,7 +72,7 @@ public class EmailNotification {
 	 * @return тему письма.
 	 */
 	public String getSubject() {
-		return subject;
+		return this.subject;
 	}
 
 	/**
@@ -45,6 +81,6 @@ public class EmailNotification {
 	 * @return содержимое письма.
 	 */
 	public String getBody() {
-		return body;
+		return this.body;
 	}
 }
