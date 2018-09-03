@@ -15,10 +15,14 @@ public class ParallelSearchSimple {
 		final Thread consumer = new Thread(
 				() -> {
 					while (true) {
-						Integer number = queue.poll();
-						System.out.println(number);
-						if (Integer.compare(number, Integer.MIN_VALUE) == 0) {
-							break;
+						try {
+							Integer number = queue.poll();
+							System.out.println(number);
+							if (Integer.compare(number, Integer.MIN_VALUE) == 0) {
+								break;
+							}
+						} catch (InterruptedException e) {
+							e.printStackTrace();
 						}
 					}
 				}

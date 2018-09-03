@@ -51,18 +51,24 @@ public class SimpleBlockingQueue<T> {
 	 * Получение объекта из очереди с последующим его удалением.
 	 *
 	 * @return Следующий объект.
+	 * @throws InterruptedException Исключение прерывания.
 	 */
-	public synchronized T poll() {
+	public synchronized T poll() throws InterruptedException {
 		while (queue.size() == 0) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			wait();
 		}
 		T result = queue.poll();
 		suspendFlag = true;
 		notify();
 		return result;
+	}
+
+	/**
+	 * Проверка очереди на пустоту.
+	 *
+	 * @return true, если очередь пустая, иначе - false.
+	 */
+	public boolean isEmpty() {
+		return this.queue.isEmpty();
 	}
 }

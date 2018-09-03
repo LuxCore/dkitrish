@@ -22,7 +22,11 @@ public class SimpleBlockingQueueTest {
 		}, "Producer");
 		Thread consumer = new Thread(() -> {
 			for (int i = 0; i < 15; i++) {
-				System.out.println("Получил: " + q.poll());
+				try {
+					System.out.println("Получил: " + q.poll());
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}, "Consumer");
 		producer.start();
