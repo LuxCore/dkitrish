@@ -54,7 +54,6 @@ public class Board {
 	 * @throws InterruptedException Выбрасывается при прерывании потока.
 	 */
 	public boolean lockCell(Cell cell) throws InterruptedException {
-		return this.board[cell.getY()][cell.getX()].tryLock()
-				|| this.board[cell.getY()][cell.getX()].tryLock(500, TimeUnit.MILLISECONDS);
+		return this.board[cell.getY()][cell.getX()].tryLock(500, TimeUnit.MILLISECONDS);
 	}
 }
