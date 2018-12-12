@@ -19,5 +19,6 @@
 	<modules>
 		<module>001.CollectionsPRO</module>
 		<module>002.MultiThreading</module>
+		<module>003.SQL_JDBC</module>
 	</modules>
 </project>
