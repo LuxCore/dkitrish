@@ -13,11 +13,9 @@ public class LogbackDemo {
 	private static final Logger LOG = LoggerFactory.getLogger(LogbackDemo.class);
 
 	/**
-	 * Main.
-	 *
-	 * @param args Console arguments.
+	 * Call of log methods of all possible levels.
 	 */
-	public static void main(String[] args) {
+	public void doLog() {
 		int version = 1;
 		LOG.trace("trace message {}", version);
 		LOG.debug("debug message {}", version);
