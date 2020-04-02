@@ -20,5 +20,6 @@
 		<module>001.BasicSyntax</module>
 		<module>002.OOP</module>
 		<module>003.CollectionsLite</module>
-	</modules>
+        <module>004.Lambda</module>
+    </modules>
 </project>
