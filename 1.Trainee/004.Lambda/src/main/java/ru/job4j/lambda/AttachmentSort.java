@@ -8,6 +8,10 @@ import java.util.List;
  * Сортировка вложений.
  */
 public class AttachmentSort {
+    /**
+     * Метод запуска программы.
+     * @param args Входные параметры.
+     */
     public static void main(String[] args) {
         List<Attachment> attachments = Arrays.asList(
                 new Attachment("attachment 33", 22),
