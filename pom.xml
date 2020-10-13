@@ -21,7 +21,7 @@
 		<mvn.compiler.ver>3.7.0</mvn.compiler.ver>
 		<chkstl.ver>2.17</chkstl.ver>
 		<hamcrest.ver>1.3</hamcrest.ver>
-		<junit.ver>4.12</junit.ver>
+		<junit.ver>4.13.1</junit.ver>
 		<jacoco.ver>0.8.5</jacoco.ver>
 		<jdoc.ver>3.0.0</jdoc.ver>
 		<logback.ver>1.2.3</logback.ver>
