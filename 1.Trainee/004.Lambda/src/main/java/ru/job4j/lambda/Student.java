@@ -25,14 +25,26 @@ public class Student {
 		this.score = score;
 	}
 
+	/**
+	 * Получение фамили студента.
+	 * @return Фамилия студента.
+	 */
 	public String getSurname() {
 		return surname;
 	}
 
+	/**
+	 * Получение баллов студента.
+	 * @return балл студента.
+	 */
 	public int getScore() {
 		return score;
 	}
 
+	/**
+	 * Установка значения балла.
+	 * @param score новый балл.
+	 */
 	public void setScore(int score) {
 		this.score = score;
 	}

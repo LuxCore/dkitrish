@@ -9,6 +9,10 @@ public class Profile {
 	 */
 	private Address address;
 
+	/**
+	 * Конструктор анкеты.
+	 * @param address Адрес клиента.
+	 */
 	public Profile(Address address) {
 		this.address = address;
 	}

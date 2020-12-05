@@ -30,6 +30,9 @@ public class ProfilesTest {
 		assertEquals(expected, new Profiles().collect(profiles));
 	}
 
+	/**
+	 * Извлечение адресов клиентов с подавлением дубликатов.
+	 */
 	@Test
 	public void testCollectWhenSuppressDuplicates() {
 		List<Profile> profiles = List.of(
