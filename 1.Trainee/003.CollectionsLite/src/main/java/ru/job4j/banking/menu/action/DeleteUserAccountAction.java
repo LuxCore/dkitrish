@@ -10,6 +10,8 @@ import ru.job4j.banking.core.NoSuchUserException;
 import ru.job4j.banking.core.User;
 import ru.job4j.banking.input.Input;
 
+import java.util.Optional;
+
 /**
  * Deletes a user account.
  */
@@ -31,21 +33,25 @@ public final class DeleteUserAccountAction extends UserAction {
 	}
 
 	/**
-	 * Executes method to deleet a user account.
+	 * Executes method to delete a user account.
 	 */
 	public void execute() {
 		String userPassport = this.getInput()
 				.ask("Введите номер паспорта пользователя: ");
 		String userAccountRequisites = this.getInput()
 				.ask("Введите реквизиты счёта, который необходимо удалить: ");
-		User user = null;
-		Account userAccount = null;
+		Optional<User> user;
+		Optional<Account> userAccount = Optional.empty();
 
 		try {
 			user = this.getBank().getUser(userPassport);
-			userAccount = this.getBank().getUserAccount(user, userAccountRequisites);
-			this.getBank().deleteUserAccount(userPassport, userAccount);
-			LOG.info("Счёт успешно удалён.");
+			if (user.isPresent()) {
+				userAccount = this.getBank().getUserAccount(user.get(), userAccountRequisites);
+			}
+			if (userAccount.isPresent()) {
+				this.getBank().deleteUserAccount(userPassport, userAccount.get());
+				LOG.info("Счёт успешно удалён.");
+			}
 		} catch (NoSuchUserException | NoSuchUserAccountException e) {
 			LOG.error(e.getMessage());
 		}

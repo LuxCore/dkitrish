@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -58,8 +59,8 @@ public class StubInputTest {
 				"1", userName3, userPassport3, "7"};
 
 		Bank bank = new Bank();
-		Input input = new InputFactory().createStub(InputType.VALID, answers);
-		MainMenu menu = new MenuFactory().create(bank, MenuUser.EMPLOYEE, input);
+		Input input = InputFactory.createStub(InputType.VALID, answers);
+		MainMenu menu = MenuFactory.create(bank, MenuUser.EMPLOYEE, input);
 		new StartUI(menu);
 
 		Set<User> actual = bank.getUsersAccounts().keySet();
@@ -89,8 +90,8 @@ public class StubInputTest {
 				"2", userPassport1, "7"};
 
 		Bank bank = new Bank();
-		Input input = new InputFactory().createStub(InputType.VALID, answers);
-		MainMenu menu = new MenuFactory().create(bank, MenuUser.EMPLOYEE, input);
+		Input input = InputFactory.createStub(InputType.VALID, answers);
+		MainMenu menu = MenuFactory.create(bank, MenuUser.EMPLOYEE, input);
 		new StartUI(menu);
 
 		Set<User> actual = bank.getUsersAccounts().keySet();
@@ -118,16 +119,16 @@ public class StubInputTest {
 				"3", userPassport1, userReqisites2, "9876543.21", "7"};
 
 		Bank bank = new Bank();
-		Input input = new InputFactory().createStub(InputType.VALID, answers);
-		MainMenu menu = new MenuFactory().create(bank, MenuUser.EMPLOYEE, input);
+		Input input = InputFactory.createStub(InputType.VALID, answers);
+		MainMenu menu = MenuFactory.create(bank, MenuUser.EMPLOYEE, input);
 		new StartUI(menu);
 
-		List<Account> actual = bank.getUserAccounts(userPassport1);
+		Optional<List<Account>> actual = bank.getUserAccounts(userPassport1);
 		List<Account> expected = new ArrayList<>();
 		expected.add(new Account(userReqisites1));
 		expected.add(new Account(userReqisites2));
 
-		assertThat(expected, is(actual));
+		assertThat(expected, is(actual.get()));
 		LOG.debug("END --- CREATION OF AN ACCOUNT FOR REGISTERED USER IN BANK SYSTEM ---");
 	}
 
@@ -149,15 +150,15 @@ public class StubInputTest {
 				"4", userPassport1, userReqisites1, "7"};
 
 		Bank bank = new Bank();
-		Input input = new InputFactory().createStub(InputType.VALID, answers);
-		MainMenu menu = new MenuFactory().create(bank, MenuUser.EMPLOYEE, input);
+		Input input = InputFactory.createStub(InputType.VALID, answers);
+		MainMenu menu = MenuFactory.create(bank, MenuUser.EMPLOYEE, input);
 		new StartUI(menu);
 
-		List<Account> actual = bank.getUserAccounts(userPassport1);
+		Optional<List<Account>> actual = bank.getUserAccounts(userPassport1);
 		List<Account> expected = new ArrayList<>();
 		expected.add(new Account(userReqisites2));
 
-		assertThat(expected, is(actual));
+		assertThat(expected, is(actual.get()));
 		LOG.debug("END --- DELETION OF AN ACCOUNT FOR REGISTERED USER IN BANK SYSTEM ---");
 	}
 
@@ -181,17 +182,17 @@ public class StubInputTest {
 				"5", userPassport1, "7"};
 
 		Bank bank = new Bank();
-		Input input = new InputFactory().createStub(InputType.VALID, answers);
-		MainMenu menu = new MenuFactory().create(bank, MenuUser.EMPLOYEE, input);
+		Input input = InputFactory.createStub(InputType.VALID, answers);
+		MainMenu menu = MenuFactory.create(bank, MenuUser.EMPLOYEE, input);
 		new StartUI(menu);
 
-		List<Account> actual = bank.getUserAccounts(userPassport1);
+		Optional<List<Account>> actual = bank.getUserAccounts(userPassport1);
 		List<Account> expected = new ArrayList<>();
 		expected.add(new Account(userReqisites1, 1234567.89));
 		expected.add(new Account(userReqisites2, 9876543.21));
 		expected.add(new Account(userReqisites3, 0.00));
 
-		assertThat(expected, is(actual));
+		assertThat(expected, is(actual.get()));
 		LOG.debug("END --- SHOW ALL ACCOUNTS OF REGISTERED USER IN BANK SYSTEM ---");
 	}
 
@@ -199,34 +200,34 @@ public class StubInputTest {
 	 * Transfer money from one account to another.
 	 */
 	@Test
-	public void testTranferMoney() {
+	public void testTransferMoney() {
 		LOG.debug("BEGIN --- TRANSFER MONEY FROM ONE ACCOUNT TO ANOTHER ---");
 		String user1Name = "Unknown User";
 		String user1Passport = "UU000000";
-		String user1Reqisites1 = "REQ_USR1-1";
-		String user1Reqisites2 = "REQ_USR1-2";
+		String user1Requisites1 = "REQ_USR1-1";
+		String user1Requisites2 = "REQ_USR1-2";
 		String user2Name = "John Doe";
 		String user2Passport = "JD??????";
-		String user2Reqisites1 = "REQ_USR2-1";
+		String user2Requisites1 = "REQ_USR2-1";
 
 		String[] answers = {
 				"1", user1Name, user1Passport,
-				"3", user1Passport, user1Reqisites1, "100000.25",
-				"3", user1Passport, user1Reqisites2, "80000.50",
+				"3", user1Passport, user1Requisites1, "100000.25",
+				"3", user1Passport, user1Requisites2, "80000.50",
 				"1", user2Name, user2Passport,
-				"3", user2Passport, user2Reqisites1, "40000.75",
-				"6", user2Passport, user2Reqisites1, user1Passport, user1Reqisites2, "20000.75",
-				"6", user1Passport, user1Reqisites1, user1Passport, user1Reqisites2, "70000.25",
+				"3", user2Passport, user2Requisites1, "40000.75",
+				"6", user2Passport, user2Requisites1, user1Passport, user1Requisites2, "20000.75",
+				"6", user1Passport, user1Requisites1, user1Passport, user1Requisites2, "70000.25",
 				"7"};
 
 		Bank bank = new Bank();
-		Input input = new InputFactory().createStub(InputType.VALID, answers);
-		MainMenu menu = new MenuFactory().create(bank, MenuUser.EMPLOYEE, input);
+		Input input = InputFactory.createStub(InputType.VALID, answers);
+		MainMenu menu = MenuFactory.create(bank, MenuUser.EMPLOYEE, input);
 		new StartUI(menu);
 
 		double actual = bank.getUserAccount(
 				new User(user1Name, user1Passport),
-				user1Reqisites2).getValue();
+				user1Requisites2).get().getValue();
 		double expected = 170_001.50;
 
 		assertThat(expected, is(actual));

@@ -1,16 +1,13 @@
 package ru.job4j.banking.menu.action;
 
 import ch.qos.logback.classic.Logger;
-
-import java.util.List;
-
 import org.slf4j.LoggerFactory;
-
-import ru.job4j.banking.core.Account;
 import ru.job4j.banking.core.Bank;
 import ru.job4j.banking.core.NoSuchUserException;
 import ru.job4j.banking.core.User;
 import ru.job4j.banking.input.Input;
+
+import java.util.Optional;
 
 /**
  * Deletes a user from bank system.
@@ -37,10 +34,10 @@ public final class DeleteUserAction extends UserAction {
 	 */
 	public void execute() {
 		String userPassport = this.getInput().ask("Введите номер паспорта пользователя: ");
-		User user = null;
+		Optional<User> user;
 		try {
 			user = this.getBank().getUser(userPassport);
-			List<Account> isUserAdded = this.getBank().deleteUser(user);
+			user.ifPresent(value -> this.getBank().deleteUser(value));
 			LOG.info("Пользователь успешно удалён из системы.");
 		} catch (NoSuchUserException e) {
 			LOG.error(e.getMessage());

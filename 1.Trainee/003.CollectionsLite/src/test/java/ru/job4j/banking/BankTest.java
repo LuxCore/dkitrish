@@ -1,22 +1,22 @@
 package ru.job4j.banking;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
 import ru.job4j.banking.core.Account;
 import ru.job4j.banking.core.Bank;
 import ru.job4j.banking.core.NoSuchUserAccountException;
 import ru.job4j.banking.core.NoSuchUserException;
 import ru.job4j.banking.core.User;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * Tests Bank methods.
@@ -175,10 +175,10 @@ public class BankTest {
 		bank.addUserAccount(batmanPassport, account1);
 
 		bank.deleteUserAccount(batmanPassport, account1);
-		List<Account> actual = bank.getUserAccounts(batmanPassport);
+		Optional<List<Account>> actual = bank.getUserAccounts(batmanPassport);
 		List<Account> expected = new ArrayList<>();
 
-		assertThat(expected, is(actual));
+		assertThat(expected, is(actual.get()));
 	}
 
 	/**
@@ -208,14 +208,14 @@ public class BankTest {
 		expected.add(account2);
 		expected.add(account3);
 		expected.add(account4);
-		List<Account> actual = null;
+		Optional<List<Account>> actual;
 		try {
 			actual = bank.getUserAccounts("666");
 		} catch (NoSuchUserException e) {
 			actual = bank.getUserAccounts(cgPassport);
 		}
 
-		assertThat(expected, is(actual));
+		assertThat(expected, is(actual.get()));
 	}
 
 	/**
@@ -415,10 +415,10 @@ public class BankTest {
 		User user1 = new User("Christian Grey", cgPassport);
 		bank.addUser(user1);
 
-		User actual = bank.getUser("CG696969");
+		Optional<User> actual = bank.getUser("CG696969");
 		User expected = new User("Christian Grey", cgPassport);
 
-		assertThat(expected, is(actual));
+		assertThat(expected, is(actual.get()));
 	}
 
 	/**
@@ -454,10 +454,10 @@ public class BankTest {
 		Account cgAccount = new Account("LUX reqisites 1", 1_500_000.69);
 		bank.addUserAccount(cgPassport, cgAccount);
 
-		Account actual = bank.getUserAccount(user, "LUX reqisites 1");
+		Optional<Account> actual = bank.getUserAccount(user, "LUX reqisites 1");
 		Account expected = new Account("LUX reqisites 1");
 
-		assertThat(expected, is(actual));
+		assertThat(expected, is(actual.get()));
 	}
 
 	/**

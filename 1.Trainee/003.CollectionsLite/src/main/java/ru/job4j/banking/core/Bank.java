@@ -1,23 +1,15 @@
 package ru.job4j.banking.core;
 
-import ch.qos.logback.classic.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 /**
  * Just simple emulate of bank system.
  */
 public class Bank {
-	/**
-	 * Logger.
-	 */
-	private static final Logger LOG =
-			(Logger) LoggerFactory.getLogger(Bank.class);
-
 	/**
 	 * Accounts of user of bank.
 	 */
@@ -78,9 +70,9 @@ public class Bank {
 	public boolean addUserAccount(String passport, Account account) {
 		boolean result = false;
 
-		List<Account> userAccounts = this.getUserAccounts(passport);
-		if (!userAccounts.contains(account)) {
-			result = userAccounts.add(account);
+		Optional<List<Account>> userAccounts = this.getUserAccounts(passport);
+		if (userAccounts.isPresent() && !userAccounts.get().contains(account)) {
+			result = userAccounts.get().add(account);
 		}
 
 		return result;
@@ -95,8 +87,8 @@ public class Bank {
 	 * @return Returns true if user account was deleted otherwise false.
 	 */
 	public Account deleteUserAccount(String passport, Account account) {
-		List<Account> userAccounts = this.getUserAccounts(passport);
-		userAccounts.remove(account);
+		Optional<List<Account>> userAccounts = this.getUserAccounts(passport);
+		userAccounts.ifPresent(accounts -> accounts.remove(account));
 
 		return account;
 	}
@@ -107,21 +99,18 @@ public class Bank {
 	 * @param passport Passport data of user.
 	 * @return List of all user accounts.
 	 */
-	public List<Account> getUserAccounts(String passport) {
-		List<Account> userAccounts = null;
+	public Optional<List<Account>> getUserAccounts(String passport) {
+		Optional<List<Account>> userAccounts = Optional.empty();
 
 		for (Map.Entry<User, List<Account>> entry : this.usersAccounts.entrySet()) {
 			if (passport.equals(entry.getKey().getPassport())) {
-				userAccounts = entry.getValue();
+				userAccounts = Optional.of(entry.getValue());
 			}
 		}
-
-		if (userAccounts == null) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Пользователь по паспорту ").append(passport).append(" не найден. \n")
-				.append("Проверьте, пожалуйста, правильность введённого номер паспорта.");
-			throw new NoSuchUserException(sb.toString());
-		}
+		userAccounts.orElseThrow(() -> new NoSuchUserException(
+				"Пользователь по паспорту " + passport + " не найден. \n"
+				+ "Проверьте, пожалуйста, правильность введённого номер паспорта.")
+		);
 
 		return userAccounts;
 	}
@@ -149,40 +138,33 @@ public class Bank {
 	public boolean transferMoney(String srcPassport, String srcRequisites,
 			String destPassport, String destRequisites, double amount) {
 
-		// Проверяем, чтобы сумма перевода была больше 0.
 		if (amount <= 0.0) {
 			return false;
 		}
 
-		// Проверяем, чтобы реквизиты не были равны.
 		if (srcRequisites.equals(destRequisites)) {
 			return false;
 		}
 
-		boolean isSuccess = false;
-
-		// Ищем отправителя.
-		User srcuser = this.getUser(srcPassport);
-		// Если отправитель был найден, то получаем доступ к его счёту.
-		Account srcAccount = this.getUserAccount(srcuser, srcRequisites);
-		// Проверяем, чтобы передаваемая сумма не превышала суммы на счету.
-		if (amount > srcAccount.getValue()) {
+		Optional<User> srcUser = this.getUser(srcPassport);
+		Optional<Account> srcAccount = Optional.empty();
+		if (srcUser.isPresent()) {
+			srcAccount = this.getUserAccount(srcUser.get(), srcRequisites);
+		}
+		if (amount > srcAccount.get().getValue()) {
 			return false;
 		}
-		// Ищем получателя, проверив не является ли отправитель и
-		// получатель одним и тем же лицом.
-		User destuser = srcPassport.equals(destPassport)
-				? srcuser : this.getUser(destPassport);
-		// Получаем доступ к счёту получателя.
-		Account destAccount = this.getUserAccount(destuser, destRequisites);
+		Optional<User> destUser = srcPassport.equals(destPassport)
+				? srcUser : this.getUser(destPassport);
+		Optional<Account> destAccount = Optional.empty();
+		if (destUser.isPresent()) {
+			destAccount = this.getUserAccount(destUser.get(), destRequisites);
+		}
 
-		// Начисляем переданную сумму на счёт получателя.
-		destAccount.setValue(destAccount.getValue() + amount);
-		// Соответственно списываем передаваемую сумму со счёта отправителя.
-		srcAccount.setValue(srcAccount.getValue() - amount);
-		isSuccess = true;
+		destAccount.get().setValue(destAccount.get().getValue() + amount);
+		srcAccount.get().setValue(srcAccount.get().getValue() - amount);
 
-		return isSuccess;
+		return true;
 	}
 
 	/**
@@ -192,21 +174,16 @@ public class Bank {
 	 *
 	 * @return user with required passport.
 	 */
-	public User getUser(String passport) {
-		User user = null;
-
-		for (Map.Entry<User, List<Account>> entry : this.usersAccounts.entrySet()) {
-			if (passport.equals(entry.getKey().getPassport())) {
-				user = entry.getKey();
-				break;
-			}
+	public Optional<User> getUser(String passport) {
+		Optional<Map.Entry<User, List<Account>>> accounts = this.usersAccounts.entrySet().stream()
+				.filter(entry -> entry.getKey().getPassport().equals(passport))
+				.findFirst();
+		Optional<User> user = Optional.empty();
+		if (accounts.isPresent()) {
+			user = Optional.of(accounts.get().getKey());
 		}
-
-		if (user == null) {
-			throw new NoSuchUserException("Пользователь с номером паспорта "
-					+ passport + " не найден!");
-		}
-
+		user.orElseThrow(() -> new NoSuchUserException("Пользователь с номером паспорта "
+				+ passport + " не найден!"));
 		return user;
 	}
 
@@ -218,26 +195,24 @@ public class Bank {
 	 *
 	 * @return Account of user.
 	 */
-	public Account getUserAccount(User user, String requisites) {
+	public Optional<Account> getUserAccount(User user, String requisites) {
 		List<Account> accounts = this.usersAccounts.get(user);
-		Account result = null;
+		Optional<Account> result = Optional.empty();
 
 		if (!accounts.isEmpty()) {
 			for (Account account : accounts) {
-				if (requisites.equals(account.getRequisites())) {
-					result = account;
+				if (account.getRequisites().equals(requisites)) {
+					result = Optional.of(account);
 					break;
 				}
 			}
 		}
 
-		if (result == null) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Счёт с реквизитами '")
-					.append(requisites).append("' у пользователя ")
-					.append(user.getName()).append(" не найден!");
-			throw new NoSuchUserAccountException(sb.toString());
-		}
+		result.orElseThrow(() -> new NoSuchUserAccountException(
+				"Счёт с реквизитами '" + requisites
+				+ "' у пользователя " + user.getName()
+				+ " не найден!")
+		);
 
 		return result;
 	}

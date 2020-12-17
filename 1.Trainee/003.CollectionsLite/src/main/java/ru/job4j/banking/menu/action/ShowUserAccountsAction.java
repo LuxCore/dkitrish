@@ -3,6 +3,7 @@ package ru.job4j.banking.menu.action;
 import ch.qos.logback.classic.Logger;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.LoggerFactory;
 
@@ -38,9 +39,10 @@ public final class ShowUserAccountsAction extends UserAction {
 		String userPassport = this.getInput().ask("Введите номер паспорта пользователя: ");
 
 		try {
-			List<Account> userAccounts = this.getBank()
+			Optional<List<Account>> userAccounts = this.getBank()
 					.getUserAccounts(userPassport);
-			this.printAllUserAccounts(userAccounts);
+			ShowUserAccountsAction that = this;
+			userAccounts.ifPresent(that::printAllUserAccounts);
 		} catch (NoSuchUserException e) {
 			LOG.error(e.getMessage());
 		}
