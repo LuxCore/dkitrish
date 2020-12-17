@@ -2,11 +2,9 @@ package ru.job4j.banking.menu.action;
 
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
-
 import ru.job4j.banking.core.Account;
 import ru.job4j.banking.core.Bank;
 import ru.job4j.banking.core.NoSuchUserException;
-import ru.job4j.banking.core.User;
 import ru.job4j.banking.input.Input;
 
 /**
@@ -36,8 +34,7 @@ public final class AddUserAccountAction extends UserAction {
 		String userPassport = this.getInput().ask("Введите номер паспорта пользователя: ");
 		String userReqisites = this.getInput().ask("Введите реквизиты счёта: ");
 		String strAmount = this.getInput().ask("Введите начальную сумму для счёта: ");
-		User user = null;
-		Account userAccount = null;
+		Account userAccount;
 
 		try {
 			double amount = Double.valueOf(strAmount);

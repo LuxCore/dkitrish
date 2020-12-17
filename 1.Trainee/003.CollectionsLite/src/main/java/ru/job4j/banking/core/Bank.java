@@ -89,7 +89,6 @@ public class Bank {
 	public Account deleteUserAccount(String passport, Account account) {
 		Optional<List<Account>> userAccounts = this.getUserAccounts(passport);
 		userAccounts.ifPresent(accounts -> accounts.remove(account));
-
 		return account;
 	}
 
@@ -100,19 +99,19 @@ public class Bank {
 	 * @return List of all user accounts.
 	 */
 	public Optional<List<Account>> getUserAccounts(String passport) {
-		Optional<List<Account>> userAccounts = Optional.empty();
-
-		for (Map.Entry<User, List<Account>> entry : this.usersAccounts.entrySet()) {
-			if (passport.equals(entry.getKey().getPassport())) {
-				userAccounts = Optional.of(entry.getValue());
-			}
+		Optional<List<Account>> accounts = Optional.empty();
+		Optional<Map.Entry<User, List<Account>>> userAccounts = this.usersAccounts.entrySet().stream()
+				.filter(entry -> entry.getKey().getPassport().equals(passport))
+				.findFirst();
+		if (userAccounts.isPresent()) {
+			accounts = Optional.of(userAccounts.get().getValue());
 		}
-		userAccounts.orElseThrow(() -> new NoSuchUserException(
+		accounts.orElseThrow(() -> new NoSuchUserException(
 				"Пользователь по паспорту " + passport + " не найден. \n"
 				+ "Проверьте, пожалуйста, правильность введённого номер паспорта.")
 		);
 
-		return userAccounts;
+		return accounts;
 	}
 
 	/**
@@ -151,7 +150,7 @@ public class Bank {
 		if (srcUser.isPresent()) {
 			srcAccount = this.getUserAccount(srcUser.get(), srcRequisites);
 		}
-		if (amount > srcAccount.get().getValue()) {
+		if (srcAccount.isPresent() && amount > srcAccount.get().getValue()) {
 			return false;
 		}
 		Optional<User> destUser = srcPassport.equals(destPassport)
@@ -161,10 +160,13 @@ public class Bank {
 			destAccount = this.getUserAccount(destUser.get(), destRequisites);
 		}
 
-		destAccount.get().setValue(destAccount.get().getValue() + amount);
-		srcAccount.get().setValue(srcAccount.get().getValue() - amount);
-
-		return true;
+		boolean result = false;
+		if (destAccount.isPresent() && srcAccount.isPresent()) {
+			destAccount.get().setValue(destAccount.get().getValue() + amount);
+			srcAccount.get().setValue(srcAccount.get().getValue() - amount);
+			result = true;
+		}
+		return result;
 	}
 
 	/**
@@ -197,17 +199,10 @@ public class Bank {
 	 */
 	public Optional<Account> getUserAccount(User user, String requisites) {
 		List<Account> accounts = this.usersAccounts.get(user);
-		Optional<Account> result = Optional.empty();
-
-		if (!accounts.isEmpty()) {
-			for (Account account : accounts) {
-				if (account.getRequisites().equals(requisites)) {
-					result = Optional.of(account);
-					break;
-				}
-			}
-		}
-
+		Optional<Account> result;
+		result = accounts.stream()
+				.filter(account -> account.getRequisites().equals(requisites))
+				.findFirst();
 		result.orElseThrow(() -> new NoSuchUserAccountException(
 				"Счёт с реквизитами '" + requisites
 				+ "' у пользователя " + user.getName()
